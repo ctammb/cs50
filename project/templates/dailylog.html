@@ -1,0 +1,106 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Log
+{% endblock %}
+
+{% block main %}
+
+<div id="collect2" class="log-container">
+  <form name="logForm" id="log" class="input-form" action="/log" method="post" >
+    <h2 class="display-6">Daily Log</h2>
+    <table class="input-table">
+      <tr><td>for:</td>
+          <td><input type="date" id="date" name="date" class="form-control mx-auto" value={{ date }}></td>
+          <td>service area:</td>
+          <td><select size="1" class="form-control"
+                id="service_category_filter_id" name="service_category_filter_id" type="number">
+                 {% for category in categories %}
+                  <option value={{ category.id }} {% if category.id == service_category_filter_id %}
+                  selected {%endif%} >{{category.service_category_name}}</option>
+                {% endfor %}
+              </select>
+          </td>
+          <td>status:</td>
+          <td><select size="1" class="form-control mx-auto"
+            id="status_filter_id" name="status_filter_id" type="number">
+
+            {% for status in statuses %}
+            <option value={{status.id}} {% if status.id == status_filter_id %}
+            selected {%endif%} >{{status.status_name}}</option>
+            {% endfor %}
+          </select>
+      </td>
+          <td><button type="submit" id="log_filter" name="log_filter" class="btn btn-primary">Filter</button></td>
+      </tr>
+      <br>
+    </table>
+    </form>
+    </div>
+        <div id="collect2" class="log-container">
+        <form name="log_update" id="log_update" class="input-form" action="/log_update" method="post" >
+        <table class="input-table">
+          <thead>
+            <tr>
+              <th>Time In</th>
+              <th>CSIS Number</th>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Service Area</th>
+              <th></th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for checkin_client in checkin_clients %}
+            <tr>
+              <td id="date">{{checkin_client.entry_date}}</td>
+              <td id="csis">{{checkin_client.csis_number}}</td>
+              <td>{{checkin_client.firstname}}</td>
+              <td>{{checkin_client.service_name}}</td>
+              <td>{{checkin_client.service_category_name}}</td>
+              <td><input id="log_id" name="log_id" value="{{ checkin_client.id }}" hidden></td>
+              <td><select size="1" class="form-control mx-auto" data-task-id="{{ checkin_client.id }}"
+                id="status_change-{{ loop.index }}" name="status_change" onchange="update(this)">
+                {% for log_status in log_statuses %}
+                <option value="{{ log_status.id }}" {% if checkin_client.status_name == log_status.status_name %}
+                selected {% endif %}>{{ log_status.status_name }}</option>
+                {% endfor %}
+              </select></td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+          <br>
+      </form>
+
+      </div>
+
+    <script>
+      function update(element) {
+
+        var log_id = element.getAttribute('data-task-id');
+        var status_change = element.value;
+        console.log(log_id, status_change);
+        var target_date = document.getElementById('date').value;
+        var sc_id = document.getElementById('service_category_filter_id').value;
+        var ss_id = document.getElementById('status_filter_id').value;
+
+        $.ajax({
+                    url: '/log_update',
+                    type: 'POST',
+                    data: { 'log_id': log_id, 'status_change': status_change, 'date': target_date, 'sc_id' : sc_id, 'ss_id' : ss_id},
+                    success: function(result) {
+                        alert('ok');
+                        },
+                        error: function(result) {
+                            alert('error');
+                    }
+                });
+
+        }
+
+    </script>
+
+{% endblock %}

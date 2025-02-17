@@ -1,0 +1,79 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+    <div id="collect6" class="survey-container">
+
+        <form autocomplete="off" name="RegForm" class="login-form" action="/register" method="post">
+
+                <h2 class="display-6">Register</h2>
+                <br>
+            <div class="mb-3">
+                <label>Username:</label>
+                <input autocomplete="off" autofocus class="form-control"
+                onfocusout="validateUser()" onchange="try{setCustomValidity('')}catch(e){}"
+                id="username" name="username" type="text"
+                size=40 required>
+                <span id="username-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>First Name:</label>
+                <input class="form-control" id="firstname" name="firstname"
+                type="text" size=40 required>
+                <span id="firstname-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>Last Name:</label>
+                <input class="form-control" id="lastname" name="lastname"
+                type="text" size=40>
+            </div>
+            <div class="mb-3">
+                <label>email Address:</label>
+                <input class="form-control"
+                    id="email" name="email" onfocusout="validateEmail()"
+                    type="text" onchange="try{setCustomValidity('')}catch(e){}"
+                    size=40 required>
+                 <span id="email-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>Role:</label>
+                <select class="form-control" id="role_id" name="role_id" required>
+                    <option value="" disabled selected hidden>select role</option>
+                    <option value=1>admin</option>
+                    <option value=2>intake</option>
+                    <option value=3>navigator</option>
+                    <option value=4>checkin</option>
+                </select>
+                <span id="role-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>Phone:</label>
+                <input class="form-control" id="phone" name="phone" placeholder="xxx-xxx-xxxx" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" size=40>
+                <span id="phone-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>Password:</label>
+                <input class="form-control" id="password" name="password" type="password" size=40 required>
+                <span id="password-error" class="error-message"></span>
+            </div>
+            <div class="mb-3">
+                <label>Confirm Password:</label>
+                <input class="form-control" id="confirmation" name="confirmation"
+                onfocusout="validateConfirmation()" onchange="try{setCustomValidity('')}catch(e){}"
+                placeholder="Confirm Password" type="password" size=40 required>
+                <span id="confirmation-error" class="error-message"></span>
+            </div>
+            <button class="btn btn-primary" type="submit">Register</button>
+            <button class="btn btn-primary" type="reset">Reset</button>
+            <div>
+                <p> Return to <a href="/login">Login</a></p>
+            </div>
+        </form>
+
+        <script src="/static/validation.js"></script>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Plan
+{% endblock %}
+
+{% block main %}
+
+        <div id="collect2" class="survey-container">
+          <form class="input-form" action="/plan" method="post">
+            <h2 class="display-6">Create a Plan</h2>
+            <p><script> document.write(new Date().toDateString()); </script></p>
+
+            <br>
+            <fieldset>
+              <table class="input-table">
+            <tr>
+               <td><label for="csis_number">Enter your client's CSIS Number or select from today's list:</label></td>
+               <td><input list="csis_numbers" id="csis_number" name="csis_number" class="form-control">
+                <datalist id="csis_numbers">
+                  {% for option in clients %}
+                  <option value="{{ option.csis_number }}">{{ option.csis_number }} {{ option.firstname }}</option>
+                  {% endfor %}
+                </datalist>
+              </td>
+              </tr>
+              <tr><td>&nbsp</td><td></td></tr>
+              <tr>
+                <td><label for="plan_date">Date of creation, "Help us understand"  or service requests (optional, defaults to today's date):</label></td>
+                <td><input type="date" id="plan_date" name="plan_date" class="form-control" value={{ date }}></td>
+              </tr>
+              <tr><td>&nbsp</td><td></td></tr>
+              </fieldset>
+            </table>
+            <hr>
+            <div>
+              <p>
+              <button type="submit" id="plan" class="btn btn-primary">Submit</button>
+              <button class="btn btn-primary" type="reset">Reset</button>
+            </p>
+            </div>
+          </form>
+
+    </div>
+
+<script>
+  const dateElement = document.getElementById("plan_date");
+  dateElement.value = new Date().toISOString().slice(0,10);
+</script>
+
+{% endblock %}

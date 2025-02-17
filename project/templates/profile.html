@@ -1,0 +1,28 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<div class="survey-container" >
+    <h2 class="display-6">Profile</h2>
+    <form class="login-form" action="/profile" method="post" >
+
+        <div class="mb-1">
+        <table>
+            <tr><th>User ID:</th><td>{{ user_profile.id }}</td></tr>
+            <tr><th>User Name:</th><td>{{ user_profile.username }}</td></tr>
+            <tr><th>Name:</th><td>{{ user_profile.firstname + " " + user_profile.lastname }}</td></tr>
+            <tr><th>email:</th><td>{{ user_profile.email }}</td></tr>
+            <tr><th>Role:</th><td>{{ user_profile.role }}</td></tr>
+            <tr><th>Status:</th><td>{{ user_profile.status_name }}</td></tr>
+            <tr><th>Start:</th><td> {{ user_profile.date_joined }}</td></tr>
+
+        </table>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Change Password</button>
+    </form>
+</div>
+{% endblock %}

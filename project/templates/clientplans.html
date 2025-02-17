@@ -1,0 +1,54 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Client Plans
+{% endblock %}
+
+{% block main %}
+
+            <div id="collect3" class="survey-container">
+                <form class="intake-form" name="planlist" action="/select_plan" method="post">
+                    <h2 class="display-6">Your Client Plans</h2>
+                    <p><script> document.write(new Date().toDateString()); </script></p>
+
+                    <fieldset>
+                    <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Plan No.</th>
+                            <th>CSIS No.</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Create Date</th>
+                            <th>Last Update</th>
+                            <th>Plan Status</th>
+                        </tr>
+                     </thead>
+                    <tbody>
+                        {% for plan in plans %}
+                        <tr>
+                        <td><input type="radio" id="display_{{plan.id}}" name="display_plan" value={{plan.id}}></td>
+                        <label for="display_{{plan.id}}">
+                        <td>{{ plan.id }}</td>
+                        <td>{{ plan.csis_number }}</td>
+                        <td>{{ plan.csis_firstname }}</td>
+                        <td>{{ plan.csis_lastname }}</td>
+                        <td>{{ plan.shortplan_date }}</td>
+                        <td>{{ plan.shortlast_update }}</td>
+                        <td>{{ plan.status_name }}</td>
+                        </label>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </fieldset>
+                <p>
+                    <br>
+                    <button type="submit" id="select_plan" class="btn btn-primary" name="select_plan">Submit</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                </p>
+                </form>
+            </div>
+            <br>
+{% endblock %}

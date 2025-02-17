@@ -1,0 +1,75 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Situations
+{% endblock %}
+
+{% block main %}
+
+<div class="survey-container">
+    <form id="sensitive">
+        <h2 class="display-6">Sensitive Situations</h2>
+        <br>
+    <table id="table_detail" class="styled-table">
+        <tr onclick="showHideRow('hidden_row1');">
+            <td>Does the client have any active alerts?</td>
+        </tr>
+        <tr id="hidden_row1" class="hidden_row" style="display:none">
+            <td class="hidden_row_display">
+            Respond to alerts. If necessary, consult your manager. If the manager is not available, reach out to Steven, Ray, Margi, or Kathleen.
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row2');">
+            <td>Is the client a possible victim of domestic violence or trafficking?</td>
+        </tr>
+
+        <tr id="hidden_row2" class="hidden_row" style="display:none">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row3');">
+            <td>Is the client depressed or at risk for injury to self or others?</td>
+        </tr>
+
+        <tr id="hidden_row3" class="hidden_row" style="display:none">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row4');">
+            <td>Does the client have disabilities that compromise their ability to help themselves?</td>
+        </tr>
+
+        <tr id="hidden_row4" class="hidden_row" style="display:none">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row5');">
+            <td>Is the client high? or have debilitating substance misuse issues?</td>
+        </tr>
+
+        <tr id="hidden_row5" class="hidden_row" style="display:none">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+      <tr onclick="showHideRow('hidden_row6');">
+          <td>Is the client chronically homeless?</td>
+      </tr>
+
+      <tr id="hidden_row6" class="hidden_row" style="display:none">
+          <td class="hidden_row_display">
+              Lorem ipsum
+          </td>
+      </tr>
+    </form>
+    </table>
+</div>
+{% endblock %}

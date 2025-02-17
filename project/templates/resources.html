@@ -1,0 +1,127 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Resources
+{% endblock %}
+
+{% block main %}
+
+            <div id="collect4" class="survey-container">
+                <form name="resourceForm" id="resource-form" class="input-form" action="/resources" method="post">
+                    <h2 class="display-6">Add/Edit/Archive Resources</h2>
+                    <br>
+
+                      <fieldset>
+                        <legend>Add Resource</legend>
+                        <table class="input-table">
+
+                            <tr><td><label class="form-label" for="resource_name">Resource Name</label>
+                            </td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto" id="resource_name" name="resource_name"
+                                type="text" required>
+                            </td></tr>
+                            <tr><td><span id="resourcename-error" class="error-message"></span></td></tr>
+
+
+                            <tr><td><label class="form-label" for="resource_type">Select the type of resource</label></td></tr>
+                                <tr><td>
+                                <select size="4" class="form-control mx-auto"
+                                id="resource_type" name="resource_type" type="number" required>
+                                    {% for resource_type in resource_types %}
+                                        <option value={{resource_type.id}}>{{resource_type.resource_type_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td></tr>
+                            <tr><td><span id="type-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="category_id">Select one or more categories the resource should be referenced under</label></td></tr>
+                            <tr><td>
+                                <select size="5" class="form-control mx-auto"
+                                id="category_id" name="category_id" type="number"
+                                multiple required>
+                                    {% for category in categories %}
+                                        <option value={{category.id}}>{{category.category_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td></tr>
+                            <tr><td><span id="category-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="resource_description">Resource Description</label></td></tr>
+                            <tr><td>
+                                <textarea class="form-control mx-auto" id="resource_description" name="resource_description"
+                                type="text" rows="3" cols="80"></textarea>
+                            </td></tr>
+                            <tr><td><span id="resourcedescription-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="parent_resource_id">Enter one associated parent resource (if any)</label></td></tr>
+                            <tr><td>
+                                <select class="form-control mx-auto"
+                                id="parent_resource_id" name="parent_resource_id" type="number" size="5">
+                                <option value=0 disabled selected>Parent Resource - select one only</option>
+                                    {% for resource in resources %}
+                                        <option value={{resource.id}}>{{resource.resource_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td></tr>
+                            <tr><td><span id="resourceparent-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="website">Enter website address, include https://</label></td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto w" id="website" name="website"
+                                type="url" size=40>
+                            </td></tr>
+                            <tr><td><span id="website-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="primary_phone">Enter phone number</label></td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto" id="primary_phone" name="primary_phone"
+                                placeholder="xxx-xx-xxxx" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" size=40>
+                            </td></tr>
+                            <tr><td><span id="phone-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="instructions">Enter standard resource instructions</label></td></tr>
+                            <tr><td>
+                                <textarea class="form-control mx-auto" id="instructions" name="instructions"
+                                type="text" rows="3" cols="80"></textarea>
+                            </td></tr>
+                            <tr><td><span id="instructions-error" class="error-message"></span></td></tr>
+
+
+                            <tr><td>
+                                <label class="form-label" for="instruction_path">Select files associated with this resource</label>
+                            </td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto" id="instruction_path" name="instruction_path"
+                                placeholder="Instruction path" type="file">
+                            </td></tr>
+                            <tr><td><span id="instructions_path-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="primary_contact">Enter Primary Conatct</label>
+                            </td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto" id="primary_contact" name="primary_contact"
+                                type="text">
+                            </td></tr>
+                            <tr><td><span id="primary_contact-error" class="error-message"></span></td></tr>
+
+                            <tr><td><label class="form-label" for="email">Enter primary email address</label>
+                            </td></tr>
+                            <tr><td>
+                                <input class="form-control mx-auto"
+                                id="email" name="email" onfocusout="validateEmail()"
+                                type="text" onchange="try{setCustomValidity('')}catch(e){}">
+                            </td></tr>
+                            <tr><td><span id="email-error" class="error-message"></span></td></tr>
+                        </table>
+                    </fieldset>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Add Resource</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+
+                    <div align="right">
+                        <p> Return to <a href="/home">home</a></p>
+                    </div>
+                </form>
+            </div>
+{% endblock %}

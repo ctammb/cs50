@@ -1,0 +1,221 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Approvals
+{% endblock %}
+
+{% block main %}
+
+<div id="collect" class="survey-container">
+  <form name="approval" id="approval" class="input-form" action="/approvals" method="post" >
+    <div id="print-area">
+
+    <h2 class="display-6">Intake Approvals</h2>
+    <br>
+    <table class="display-table">
+      <tr><td><label>CSIS No: &nbsp </label> {{ csis_number }} </td></tr>
+      <tr><td><label>Name: &nbsp </label>&nbsp{{ client.firstname }}&nbsp{{ client.middlename }}&nbsp{{ client.lastname }}</td></tr>
+      <tr><td><label>Alert: &nbsp </label>{{download.csis_alert}} &comma;  &nbsp {% if client.alert %} &nbsp {{ client.alert }} {% endif %}</td></tr>
+
+    </table>
+    <hr>
+    <table class="input-table">
+      <fieldset>
+        <legend>Card Detail</legend>
+        <br>
+
+          {% for condition in conditions %}
+          {% if loop.last %}
+              <tr>
+                <td><input type="checkbox" id="{{ condition.condition }}" name="condition" value="{{ condition.id }}"
+                  {% for med_cond in med_conds %}
+                  {% if med_cond.condition_id == condition.id %} checked {% endif %}
+                  {% endfor %}
+                  ></td>
+                <td><label for="{{ condition.condition }}">{{ condition.condition }}</label></td>
+                <td><input type="text" class="form-control" id="othermedtext" name="othermedtext" value="{{ client.med_text if client.med_text is not none }}"></td>
+                <td><label for="othermedtext">if other, please state</label></td>
+              </tr>
+          {% else %}
+            <tr>
+              <td><input type="checkbox" id="{{condition.condition}}" name="condition" value="{{ condition.id }}"
+                {% for med_cond in med_conds %}
+                {% if med_cond.condition_id == condition.id %} checked {% endif %}
+                {% endfor %}
+                ></td>
+              <td><label for="{{condition.condition}}">{{condition.condition}}</label></td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+          <tr>
+              <td><label class="form-label" for="emergencyname">Emergency Name:</label></td>
+              <td colspan="2"><input type="text" id="emergencyname" name="emergencyname" class="form-control" value="{{ client.emergency_name }}"></td>
+            </tr>
+            <tr>
+              <td><label class="form-label" for="emergencyphone">Emergency Phone:</label></td>
+              <td colspan="2"><input type="tel" id="emergencyphone" name="emergencyphone" class="form-control" value="{{ client.emergency_phone }}"></td>
+            </tr>
+          <tr>
+            <div class="radio-block">
+            <td><label>Veteran Status</label></th>
+            <td><label for="veteranYes">
+            <input type="radio" id="veteranYes" name="veteran" value="yes"
+            {% if client.veteran == "yes" %}
+            checked
+            {% endif %}>
+            yes</label></td>
+            <td><label for="veteranNo">
+            <input type="radio" id="veteranNo" name="veteran" value="no"
+            {% if client.veteran == "no" %}
+            checked
+            {% endif %}>
+            no</label></td>
+          </tr>
+          <tr><td>&nbsp</td></tr>
+          </fieldset>
+    </table>
+    <hr>
+
+    <table class="input-table">
+          <fieldset>
+            <legend>Registration Detail</legend>
+
+
+          <tr>
+            <td><label class="form-label">First Card: </label></td>
+            <td>{{ first_card }}</td>
+            <td><label class="form-label">Last Card: </label></td>
+            <td>{{ last_card }}</td>
+            <td><label class="form-label">Card Count: </label></th>
+            <td>{{download.ctid_count}}</td>
+          </tr>
+          <tr>
+            <td><label class="form-label">Last ROI: </label></td>
+            <td>{{ last_roi }}</td>
+            <td><label class="form-label">ROI Expire Date: </label></td>
+            <td>{{ roi_limit }}</td>
+            </tr>
+            <tr>
+            <td><label class="form-label">Last Intake: </label></td>
+            <td>{{ last_intake }}</td>
+            <td><label class="form-label">Intake Expire Date: </label></td>
+            <td>{{ intake_limit }}</td>
+          </tr>
+          <tr><td>&nbsp</td></tr>
+          </fieldset>
+        </table>
+        <hr>
+      </div>
+          <table class="input-table">
+            <fieldset>
+              <legend>Bike Detail</legend>
+          <tr>
+            <td><label class="form-label">Last Bike Issued: </label></td>
+            <td>{{ last_bike }}</td>
+
+            <td><label class="form-label">Bike Repair Count: </label></td>
+            <td>{{download.bike_repair_count}}</td>
+            <tr>
+              <td><label class="form-label">Bike Make and Model: </label></td>
+              <td>{{download.last_bike_comments}}</td>
+            </tr>
+            <tr><td>&nbsp</td></tr>
+          </fieldset>
+          </table>
+          <hr>
+
+
+          <table class="input-table">
+            <fieldset>
+              <legend>Other</legend>
+          <tr>
+            <td><label class="form-label">Last Backpack: </label></td>
+            <td>{{ last_backpack }}</td>
+            <td><label class="form-label">Bus Pass Count: </label></td>
+            <td>{{download.bus_pass_count}}</td>
+          </tr>
+          <tr>
+            <td><label class="form-label">ROI: </label></td>
+            <td>{{download.roi_pdf_path}}</td>
+            <td><label class="form-label">Photo: </label></td>
+            <td>{{download.photo_path}}</td>
+          </tr>
+          <tr><td>&nbsp</td></tr>
+
+          </fieldset>
+          </table>
+
+          <hr>
+
+        <table class="input-table" >
+          <fieldset>
+            <legend>Approvals Pending:
+            </legend>
+          <tbody id="dataTable">
+          {% if services_pending_approval %}
+          {% for pending in services_pending_approval %}
+            <tr>
+            <td><input type="checkbox" id="{{ pending.service_shortname}}" name="{{ pending.service_shortname }}" value="{{ pending.service_id }}"></td>
+            <td><label for="{{ pending.service_shortname }}">{{ pending.service_name }}</label></td>
+            <td id="entry_date">{{ pending.entry_date }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+          {% else %}
+          <tr>
+            <td>None</td>
+          </tr>
+          {% endif %}
+          <tr><td>&nbsp</td></tr>
+
+          </fieldset>
+      </table>
+        <br><br>
+        <button type="button" id="print_card" name="print_card" class="btn btn-primary" onclick="printCardDetails()">Print Card Details</button>
+        <button type="submit" id="approvals" name="approvals" class="btn btn-primary">Submit Approvals</button>
+
+  </form>
+</div>
+
+<script>
+  document.getElementById('filter_date').addEventListener('input', function() {
+      const filterDate = this.value;
+      const rows = document.querySelectorAll('#dataTable tr');
+      if (rows.length > 0) {
+        console.log("There are rows");
+        rows.forEach(row => {
+          const dateField = new Date(row.querySelector('#entry_date').textContent).toISOString().split('T')[0];
+          console.log(dateField);
+          if (dateField === filterDate || filterDate === "") {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+        });
+      } else {
+        console.log("There are no rows")
+      }
+  });
+  </script>
+  <script>
+  function printCardDetails() {
+  // Create a new window for printing
+  var printWindow = window.open('', '', 'width=800,height=600');
+
+  // Get the content you want to print
+  var printContent = document.getElementById('print-area').innerHTML;
+
+  // Write the content to the new window
+  printWindow.document.write('<html><head><title>Card Details</title>');
+  printWindow.document.write('<link rel="stylesheet" href="/static/style.css" media="print">');
+  printWindow.document.write('</head><body>');
+  printWindow.document.write(printContent);
+  printWindow.document.write('</body></html>');
+
+  // Close the document and print
+  printWindow.document.close();
+  printWindow.print();
+  }
+  </script>
+
+{% endblock %}

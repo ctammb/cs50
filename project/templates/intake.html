@@ -1,0 +1,373 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Intake
+{% endblock %}
+
+{% block main %}
+
+<div id="collect" class="survey-container">
+  <form name="intake" id="intake" class="intake-form" action="/intake" method="post" >
+    <h2 class="display-6">Welcome Worksheet</h2>
+    <p><script> document.write(new Date().toDateString()); </script></p>
+
+    <fieldset><table class="display-table">
+      <tr><td><label>CSIS No: &nbsp </label> {{ csis_number }}  &comma; &nbsp{{ client.firstname }}&nbsp{{ client.middlename }}&nbsp{{ client.lastname }}</td></tr>
+      <tr><td><label>Alert: &nbsp </label>{{client.csis_alert}}  &nbsp {% if client.alert %} &comma; &nbsp {{ client.alert }} {% endif %}</td></tr>
+      <tr><td><label>Date of Birth: </label>{{ dob }}</td></tr>
+      <tr><td><label>Social Security Number: </label>{{ client.ssn }}</td></tr>
+    </table>
+
+    <hr>
+
+    <input id="hh_row_count" name="hh_row_count" type="number" style="display:none;">
+        <fieldset>
+          <legend>Household Information</legend><p>Please list this information for all other individuals in your home, NOT including yourself</legend>
+          <div id="display">
+            <table id="household" class="input-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>SSN</th>
+                  <th>Date of Birth</th>
+                  <th>Gender</th>
+                  <th>Relationship to you</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hh-row">
+                  <td id="display_row_count"></td>
+                  <td><input type="text" id="firstname-1" name="firstname-1" class="form-control household-name1"></td>
+                  <td><input type="text" id="lastname-1" name="lastname-1" class="form-control household-name2"></td>
+                  <td><input type="text" id="ssn-1" name="ssn-1" class="form-control"></td>
+                  <td><input type="date" id="dob-1" name="dob-1" class="form-control household-dob"></td>
+                  <td>
+                    <select size="1" class="form-control mx-auto" id="gender-1"
+                    name="gender-1">
+                        <option value=0 disabled selected>select one</option>
+                        {% for gender in genders %}
+                            <option value="{{ gender.id }}">{{ gender.gender }}</option>
+                        {% endfor %}
+                    </select></td>
+                    <td>
+                    <select size="1" class="form-control mx-auto" id="relationship-1"
+                    name="relationship-1">
+                        <option value=0 disabled selected>select one</option>
+                        {% for relationship in relationships %}
+                            <option value="{{ relationship.id }}">{{ relationship.relationship }}</option>
+                        {% endfor %}
+                    </select></td>
+
+                </tr>
+              </tbody>
+            </table>
+            <p id="error"></p>
+            <button type="button" id="addrow" name="addrow" class="btn btn-primary">Add Row</button>
+            <button type="button" id="deleteRow" name="deleteRow" class="btn btn-primary">Delete Last Row</button>
+            <button type="button" id="resetHH" name="resetHH" class="btn btn-primary">Reset</button>
+            </div>
+        </fieldset>
+        <br>
+
+          <fieldset>
+          <legend>Help us understand your situation</legend>
+          <table class="input-table">
+            {% for situation in situations %}
+            <tr>
+              <td>{{ situation.situation_question}}</td>
+
+              <td><div class="radio-block"><label for="{{ situation.situation }}Yes">
+              <input type="radio" id="{{ situation.situation }}Yes" name="{{ situation.situation }}" value="yes" required>
+              Yes</label></td>
+              <td><label for="{{ situation.situation }}No">
+              <input type="radio" id="{{ situation.situation }}No" name="{{ situation.situation }}" value="no" required>
+              No</label></td>
+              {% if situation.situation == "school" %}
+              <td><label for="{{ situation.situation }}NoKids">
+                <input type="radio" id="{{ situation.situation }}NoKids" name="{{ situation.situation }}" value="no kids" required>
+                No kids</label></td>
+              {% else %}
+                <td></td>
+              {% endif %}
+              </div>
+            </tr>
+              {% if situation.situation == "unhoused" %}
+              <tbody id="homelessDisplay">
+              <tr>
+                <td>If yes, for how long?</td>
+                <td><div class="radio-block">
+                  <label for="homeless_time-90">
+                    <input type="radio" id="homeless_time-90" name="homeless_time" value="Less than 90 days">
+                    less than 90 days</label></div></td>
+                  <td><div class="radio-block"><label for="homeless_time-4-1">
+                    <input type="radio" id="homeless_time-4-1" name="homeless_time" value="4 months - 1 year">
+                    4 months - 1 year</label></div></td>
+                  <td><div class="radio-block"><label for="homeless_time-1yr">
+                    <input type="radio" id="homeless_time-1yr" name="homeless_time" value="more than 1 year">
+                    more than 1 year</label></div></td>
+              </tr>
+              <tr>
+                  <td>where did you sleep last night?</td>
+                  <td><input type="text" id="sleep" name="sleep" class="form-control"></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              </tbody>
+              {% endif %}
+              {% if situation.situation == "car" %}
+              <tbody id="transportationDisplay">
+              <tr>
+                  <td>if yes, what kind?</td>
+                  <td><input type="text" id="transportation_type" name="transportation_type" class="form-control"></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              </tbody>
+             {% endif %}
+            {% endfor %}
+              <tbody>
+                <tr>
+                <td>How did you hear about Turning Points?</td>
+                <td colspan="3"><input type="text" id="hear_about" name="hear_about" class="form-control"></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+              <td colspan="4">Is there anything else you want us to know about your situation?</td></tr>
+              <tr><td colspan="4"><textarea id="more" name="more" rows="3" cols="80" class="form-control"></textarea></td>
+            </tr>
+          </tbody>
+            </table>
+          </fieldset>
+
+         <hr>
+
+            <fieldset>
+              <legend>Turning Points Service Requests</legend>
+              <br>
+              <table class="input-table">
+              {% for service in services %}
+                <tr>
+                <td><input type="checkbox" id="{{service.service_shortname}}" name="{{service.service_shortname}}" value={{service.id}}></td>
+                <td><label for="{{service.service_shortname}}">{{service.service_name}}</label></td>
+                </tr>
+                {% endfor %}
+                <tr><td>&nbsp</td><td></td></tr>
+              </table>
+            </fieldset>
+
+            <hr>
+
+              <fieldset>
+                <legend>Special circumstance?</legend>
+                <p>(Do not ask if not freely offered)</p>
+                <table class="input-table">
+                <div class="radio-block">
+
+                    {% for circumstance in circumstances %}
+                  <tr><td><label for="circumstance-{{ loop.index }}">
+                    <input type="radio" id="circumstance-{{ loop.index }}" name="circumstance" value="{{ circumstance.id }}"
+                    {% if circumstance.id == 4 %}checked{% endif %}>
+                    {{ circumstance.circumstance }}</label></td></tr>
+                    {% endfor %}
+                 </div>
+                </table>
+                </fieldset>
+                <hr>
+
+        <div>
+          <p>
+          <button type="submit" id="intake_button" class="btn btn-primary">Submit</button>
+          <button class="btn btn-primary" type="reset">Reset</button>
+        </p>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var display_row_count = 1;
+    document.getElementById("display_row_count").innerHTML = display_row_count;
+});
+</script>
+
+<script>
+  function deleteRow() {
+    var error = document.getElementById("error");
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    if (row_count > 2) {
+        table.deleteRow(-1);
+    }
+    else {
+      error = "No rows to delete";
+    }
+  }
+</script>
+
+<script>
+  document
+    .getElementById("deleteRow")
+    .addEventListener('click', deleteRow);
+</script>
+
+<script>
+ function resetHH() {
+    var table = document.getElementById('household');
+    var row_count = table.rows.length;
+    console.log(row_count);
+    if (row_count > 2) {
+      for (let i = 0; i < (row_count - 2); i++) {
+        console.log(i);
+        table.deleteRow(-1);
+      }
+    }
+
+    row_count = table.rows.length;
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count - 1;
+
+    document.getElementById("firstname-1").value = "";
+    console.log(document.getElementById("firstname-1").value);
+    document.getElementById("lastname-1").value = "";
+    document.getElementById("ssn-1").value = "";
+    document.getElementById("dob-1").value = "";
+    document.getElementById("gender-1").value = 0;
+    document.getElementById("relationship-1").value = "";
+
+}
+</script>
+
+<script>
+  document
+    .getElementById("resetHH")
+    .addEventListener('click', resetHH);
+</script>
+
+<script>
+  function addrow() {
+    var error = document.getElementById("error");
+
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    console.log(row_count);
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count;
+    console.log(hh_row_count.value);
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    var lastName1 = lastRow.querySelector(".household-name1").value;
+    console.log(lastName1);
+    var lastName2 = lastRow.querySelector(".household-name2").value;
+    console.log(lastName2);
+    var lastdob = lastRow.querySelector(".household-dob").value;
+    console.log(lastdob);
+    if (lastName1 !== "" && lastName2 !== "" && lastdob !== "") {
+      let row = document.createElement("tr");
+      let cell0 = document.createElement("td");
+      let cell1 = document.createElement("td");
+      let cell2 = document.createElement("td");
+      let cell3 = document.createElement("td");
+      let cell4 = document.createElement("td");
+      let cell5 = document.createElement("td");
+      let cell6 = document.createElement("td");
+
+      cell0.innerHTML = row_count;
+      cell1.innerHTML = `<input type="text" id="firstname-${row_count}" name="firstname-${row_count}" class="form-control household-name1" required>`;
+      cell2.innerHTML = `<input type="text" id="lastname-${row_count}" name="lastname-${row_count}" class="form-control household-name2" required>`;
+      cell3.innerHTML = `<input type="text" id="ssn-${row_count}" name="ssn-${row_count}" class="form-control">`;
+      cell4.innerHTML = `<input type="date" id="dob-${row_count}" name="dob-${row_count}" class="form-control household-dob" required>`;
+      cell5.innerHTML = `<select size="1" class="form-control mx-auto" id="gender-${row_count}"' +
+                    'name="gender-${row_count}" type="number">' +
+                        '<option value=0 disabled selected>select one</option>' +
+                        '{% for gender in genders %}' +
+                            '<option value="{{ gender.id }}">{{ gender.gender }}</option>' +
+                        '{% endfor %}' +
+                    '</select>`;
+      cell6.innerHTML = `<select size="1" class="form-control mx-auto" id="relationship-${row_count}"' +
+                    'name="relationship-${row_count}" type="number">' +
+                        '<option value=0 disabled selected>select one</option>' +
+                        '{% for relationship in relationships %}' +
+                            '<option value="{{ relationship.id }}">{{ relationship.relationship }}</option>' +
+                        '{% endfor %}' +
+                    '</select>`;
+
+      row.appendChild(cell0);
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      row.appendChild(cell3);
+      row.appendChild(cell4);
+      row.appendChild(cell5);
+      row.appendChild(cell6);
+
+      table.appendChild(row);
+      error.textContent = "";
+
+      console.log( $("#items").html() );
+    }
+    else {
+      console.log("fields are empty");
+      error.textContent = "first and last name and date of birth required";
+      error.style.color = "red";
+      addrow.preventDefault;
+      // Display an error message
+    }
+  }
+</script>
+
+  <script>
+        document
+          .getElementById("addrow")
+          .addEventListener('click', addrow);
+  </script>
+
+    <script>
+        $('input[type=radio][name="county"]').change(function() {
+          console.log($(this).val())
+          if($(this).val() == 'yes') {
+            $("#manateeDisplay").show();
+        } else {
+            $("#manateeDisplay").hide();
+        }
+      });
+    </script>
+      <script>
+          $('input[type=radio][name="unhoused"]').change(function() {
+            console.log($(this).val())
+            if($(this).val() == 'yes') {
+              $("#homelessDisplay").show();
+          } else {
+              $("#homelessDisplay").hide();
+          }
+        });
+      </script>
+
+  <script>
+    $('input[type=radio][name="car"]').change(function() {
+      console.log($(this).val())
+      if($(this).val() == 'yes') {
+        $("#transportationDisplay").show();
+    } else {
+        $("#transportationDisplay").hide();
+    }
+  });
+  </script>
+
+<script>
+  (function() {
+    var submit = document.getElementById('submit');
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+
+
+{% endblock %}

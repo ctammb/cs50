@@ -1,0 +1,74 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Check In
+{% endblock %}
+
+{% block main %}
+
+<div id="collect2" class="survey-container">
+  <form name="checkinForm2" id="checkin" class="intake-form" action="/checkin2" method="post" >
+    <h2 class="display-6">Check In</h2>
+
+      <p><script> document.write(new Date().toDateString()); </script></p>
+
+    <fieldset>
+      <legend>Confirmed Client</legend>
+
+          </fieldset>
+
+          <table class="display-table">
+            <tr>
+              <td><b>Name:</b></td>
+              <td>{{ firstname }}</td>
+              <td>{{ lastname }}</td>
+              </tr>
+              <tr>
+              <td><b>DOB:</b></td>
+              <td>{{ dob }}</td>
+            </tr>
+            <tr>
+              <td><b>CSIS Number:</b></td>
+              <td>{{ csis_number }}</td>
+            </tr>
+            </table>
+            <br>
+               <fieldset>
+                <legend>Turning Points Service Requests</legend>
+                <br><br>
+                <table class="input-table">
+                {% for service in services %}
+                  <tr>
+                  <td><input type="checkbox" id="{{service.service_shortname}}" name="{{service.service_shortname}}" value={{service.id}}></td>
+                  <td><label for="{{service.service_shortname}}">{{service.service_name}}</label></td>
+                  </tr>
+                  {% endfor %}
+                  <tr><td>&nbsp</td><td>&nbsp</td></tr>
+                </table>
+              </fieldset>
+
+              <br>
+
+
+          <div>
+            <p>
+            <button type="submit" id="log" class="btn btn-primary" name="csis-value" value="{{csis_number}}">Submit</button>
+            <button class="btn btn-primary" type="reset">Reset</button>
+          </p>
+          </div>
+
+      </form>
+
+    </div>
+
+ <script>
+  (function() {
+    var submit = document.getElementById('submit');
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+
+{% endblock %}

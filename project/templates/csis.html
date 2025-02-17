@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TP Navigator: CSIS</title>
+        <script>
+          function showHideRow(row) {
+              $("#" + row).toggle();
+          }
+        </script>
+        <script>
+          function showAlert(event) {
+              // Prevents the default form submission
+              event.preventDefault();
+              alert('Form submitted!');
+          }
+        </script>
+
+    </head>
+    {% if get_flashed_messages() %}
+    <header>
+        <div class="alert alert-primary mb-0 text-center" role="alert">
+            {{ get_flashed_messages() | join(" ") }}
+        </div>
+    </header>
+    {% endif %}
+
+<body>
+
+  <div id="instructions" class="instruction-container">
+    <p>Matching profiles were found, please review each profile and select the most likely one
+       (the one with the latest ROI date may be the best bet).
+       If many of the profiles look to be the same client, click the 'merge' checkbox and we will instruct Clarity
+       to merge those profiles. If no profiles seem a likely match, chose 'none', a new profile will be created.</p>
+  </div>
+<form name="CSISsearchForm" id="CSISsearchForm" class="intake-form" action="/csis_select" method="post" >
+<fieldset>
+  <div id="search-display">
+    <table font-size="smaller" class="input-table">
+      <tr>
+      <th>Select</th>
+      <th>Merge</th>
+      <th>CSIS Number</th>
+      <th>Retired Number</th>
+      <th>Alert</th>
+      <th>First</th>
+      <th>Middle</th>
+      <th>Last Name</th>
+      <th>SS#</th>
+      <th>DOB</th>
+      <th>1st CTID</th>
+      <th>Last CTID</th>
+      <th>CTID Count</th>
+      <th>Last Intake</th>
+      <th>Last ROI</th>
+      <th>Last Bike</th>
+      <th>Bike Repair Count</th>
+      <th>Bike Info</th>
+      <th>Last Navigator Contact</th>
+      <th>Last Navigator</th>
+      <th>Last Backpack</th>
+      <th>ROI PDF</th>
+      <th>Photo</th>
+      </tr>
+      {% for row in formatted_data %}
+      <tr>
+        <td><input type="radio" id="select" name="select" value="{{ row.id }}"></td>
+        <td><input type="checkbox" id="merge{{ loop.index }}" name="merge" value="{{ row.id }}"></td>
+        <td>{{row.csis_number}}</td>
+        <td>{{row.retired_client_number}}</td>
+        <td>{{row.csis_alert}}</td>
+        <td>{{row.csis_firstname}}</td>
+        <td>{{row.csis_middlename}}</td>
+        <td>{{row.csis_lastname}}</td>
+        <td>{{row.csis_ssn}}</td>
+        <td>{{row.csis_dob}}</td>
+        <td>{{row.ctid_first}}</td>
+        <td>{{row.ctid_last}}</td>
+        <td>{{row.ctid_count}}</td>
+        <td>{{row.last_intake_date}}</td>
+        <td>{{row.last_roi_date}}</td>
+        <td>{{row.last_bike_date}}</td>
+        <td>{{row.bike_repair_count}}</td>
+        <td>{{row.last_bike_comments}}</td>
+        <td>{{row.last_navigator_date}}</td>
+        <td>{{row.last_navigator_id}}</td>
+        <td>{{row.last_backpack_date}}</td>
+        <td>{{row.bus_pass_count}}</td>
+        <td>{{row.roi_pdf_path}}</td>
+        <td>{{row.photo_path}}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td><input type="radio" id="select" name="select" value=""></td>
+        <td>None</td>
+      </tr>
+      <hr>
+      <br>
+      <tr>
+        <td id="match_count" value="{{ match_count }}">{{ match_count }}</td>
+      </tr>
+
+
+    </table>
+  </div>
+</fieldset>
+
+<div>
+  <p>
+  <button type="submit" id="csis-select" class="btn btn-primary">Submit</button>
+  <button class="btn btn-primary" type="reset">Reset</button>
+</p>
+</div>
+
+</form>
+
+<script>
+
+function merge() {
+
+    const merge_count = getElementById("#merge_count").value;
+    console.log(merge_count)
+}
+</script>
+
+</body>
+</html>

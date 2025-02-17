@@ -1,0 +1,687 @@
+/* Nav entries */
+/* Size for brand */
+.navbar {
+   --bs-navbar-padding-y: 0px;
+}
+nav .navbar-brand
+{
+    font-size: xx-large;
+    padding-top: 0px;
+}
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+@media print {
+
+    body * {
+      visibility: hidden; /* Adjust the margin size as needed */
+    }
+
+    #print-area, #print-area * {
+        visibility: visible; /* Make the print area visible */
+      }
+
+    #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+  }
+
+/* Classes */
+
+.accordion-body {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.accordion-header {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.accordion-item {
+    background-color: #f8f8f8;
+}
+
+.align-label {
+    text-align: left; /* or right, center, etc. */
+  }
+
+.alert {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #FF0000;
+    font-weight: normal;
+    font-size: 1.3em;
+}
+
+.btn {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25 rem !important;
+    font-size: 1.0rem;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #0F52BA !important;
+}
+
+.card-title {
+    font-size: larger;
+}
+
+.card-top {
+    padding-top: 1.5rem;
+    height: 5rem;
+    background-color: #485054;
+    color: white;
+}
+
+.client-display td {
+    padding: 15px;
+    text-align: center;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9em;
+ }
+
+.container h1 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.CSIS-display {
+    font-weight: normal;
+}
+
+.d-flex{
+    float: right;
+}
+
+.display-table {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0px;
+    font-family: sans-serif;
+    text-align: left;
+    color: #2E2E2E;
+    border: #A4A4A4;
+}
+
+.error-message {
+    color: red;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+.form-label {
+    margin-bottom: 0px;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-space {
+    margin-top: 20px;
+    padding-left: 20px;
+    display: block;
+}
+
+.header {
+    color: #fff;
+    margin-bottom: 1rem 1rem;
+    padding: 1rem 1rem;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.hidden_row_display {
+    font-weight: bold;
+}
+
+.index-container {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    padding: 0px;
+    border-radius: 10px;
+}
+
+
+.input-form {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+.input-table {
+    border-collapse: collapse;
+    width: 100%; /* Let the table span full width */
+    margin: auto;
+    padding: 20px;
+    font-family: sans-serif;
+    text-align: left;
+    color: #2E2E2E;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border: #A4A4A4;
+}
+
+.input-table thead tr {
+    background-color: #0F52BA;
+    color: #ffffff;
+    text-align: center;
+}
+
+.input-table th {
+    padding: 5px;
+}
+
+.input-table input {
+    margin: 2px;
+}
+
+.input-table td label {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+.input-table td {
+    padding-bottom: 1px;
+    Padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.input-table td:first-child {
+    white-space: nowrap;
+}
+
+.input-table td[colspan="2"] {
+    width: 50%; /* Force the colspan cells to span half the table width */
+}
+
+.input-table td select {
+    padding-bottom: 1px;
+    Padding-top: 2px;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: left;
+    font-size: 1.0em;
+}
+
+.input-table tbody input {
+    padding-bottom: 1px;
+    Padding-top: 2px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.input-table tbody tr {
+    border-bottom: thin solid #dddddd;
+}
+
+.input-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.input-table tbody tr.active-row {
+    font-weight: bold;
+    color: #0F52BA;
+}
+
+.input-table select option {
+    font-size: 0.9em;
+}
+
+.input-table select option selected {
+    font-size: 0.9em;
+}
+
+.input-table textarea {
+    width: 100%;
+}
+
+.intake-form {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    text-align: left;
+    width: auto;
+}
+
+.intake-form label {
+    font-weight: bolder;
+}
+
+.intake-form select {
+    font-size: 1.0em;
+}
+
+.list-group{
+    padding: 10px;
+}
+
+.list-group h5 {
+    text-decoration: underline;
+}
+
+.list-group p {
+    padding: 10px;
+}
+
+.log-container {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%
+}
+
+.login-form {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    text-align: left;
+    max-width: 60%;
+}
+
+.message{
+    color: black;
+    font-size: 1.1em;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.radio-block label {
+    display: block;
+}
+
+.reset-button {
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    float: left;
+    width: 80px;
+}
+
+.ribbon {
+    background-color: #333399;
+    flex-shrink: 0;
+    height: 40vh;
+    width: 100%;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: auto;
+    font-family: sans-serif;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    text-align: left;
+    color: #2E2E2E;
+    border: #A4A4A4;
+
+}
+
+.styled-table a {
+    color: black;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.styled-table thead tr {
+    background-color: #0F52BA;
+    color: #ffffff;
+    text-align: center;
+}
+
+.styled-table th {
+    padding: 12px 15px;
+}
+
+.styled-table tbody td {
+    padding: 10px 10px;
+    text-align: left;
+}
+
+.styled-table tbody tr {
+    border-bottom: thin solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #0F52BA;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #0F52BA;
+}
+
+.survey-container {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.instruction-container {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+.w-auto {
+    width: auto;
+}
+
+
+/* Objects */
+
+body {
+    min-height: 50rem;
+    padding-top: 0px;
+  }
+
+button {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 12px;
+    margin-right: 40px;
+    float: left;
+}
+
+button.accordion-button {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.0em;
+}
+
+form {
+    width: 100%;
+    [name="csis"]{
+        width: 30%;
+      }
+}
+
+input:invalid {
+	border-color: red;
+}
+
+input,
+input:valid {
+	border-color: #ccc;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    padding-top: 0px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+
+input {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    overflow: hidden;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+ }
+
+ input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+ }
+ input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -4px;
+ }
+ input[type=range]:focus {
+    outline: none;
+ }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+ }
+ input[type=range] {
+    /* fix for FF unable to apply focus style bug  */
+    border: 1px solid white;
+    /*required for proper track sizing in FF*/
+    width: 300px;
+ }
+  input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+ }
+  input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+ }
+
+ /*hide the outline behind the border*/
+ input[type=range]:-moz-focusring {
+    outline: 1px solid white;
+    outline-offset: -1px;
+ }
+  input[type=range]:focus::-moz-range-track {
+    background: #ccc;
+ }
+
+ /* for ie */
+
+ input[type=range]::-ms-track {
+    width: 300px;
+    height: 5px;
+
+ /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+
+ /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+ /*remove default tick marks*/
+    color: transparent;
+ }
+ input[type=range]::-ms-fill-lower {
+    background: #777;
+    border-radius: 10px;
+ }
+ input[type=range]::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 10px;
+ }
+ input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+ }
+ input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+ }
+ input[type=range]:focus::-ms-fill-upper {
+    background: #ccc;
+ }
+
+select {
+    border:0;
+    background:transparent;
+    border:1px solid #d8d8d8;
+    width:350px;
+    -webkit-appearance: none;
+}
+
+
+ul {
+    width: 100%
+}
+
+/* ids */
+
+#btnSave button {
+    float: none;
+}
+
+
+#comments {
+    width: 100%;
+}
+
+#display {
+    background-color: white;
+}
+
+
+
+#display tr:nth-child(even){background-color: #f2f2f2;}
+
+#display tr:hover {background-color: #ddd;}
+
+#display th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #6c757d;
+    color: white;
+}
+
+#form_detail {
+    width: 540px;
+    text-align: left;
+    border-collapse: collapse;
+    color: #2E2E2E;
+    border: #A4A4A4;
+}
+
+#intake-detail tr td {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+
+#resource-form {
+    margin-right:auto;
+    margin-left: auto;
+}
+
+#search-display {
+    font-size: smaller;
+}
+
+#search-display-iframe {
+    display: none;
+}
+
+#search-box {
+    margin-left: 40%;
+    width: 40%;
+}
+
+#search-button {
+    float: right;
+    margin-right: 5px;
+}
+
+#table_detail tr:hover {
+    background-color: #F2F2F2;
+}
+
+#table_detail .hidden_row {
+    display: none;
+}
+
+#wrapper {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    padding: 30px;
+    text-align: left;
+    width: 600px;
+}

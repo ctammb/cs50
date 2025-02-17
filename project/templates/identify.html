@@ -1,0 +1,106 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Identify
+{% endblock %}
+
+{% block main %}
+
+<div id="collectIdentify" class="survey-container">
+  <form name="identify" id="identify" class="intake-form" action="/identify" method="post" >
+    <h2 class="display-6">Intake</h2>
+    <p><script> document.write(new Date().toDateString()); </script></p>
+
+      <fieldset>
+        <legend>Client Search</legend>
+        <br><br>
+        <table class="input-table">
+          <tr>
+            <td><label class="form-label" for="csis_number">CSIS Number</label></td>
+            <td></td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="csis_number" name="csis_number" class="form-control"></td>
+            <td></td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td><label class="form-label" for="firstname">First Name</label></td>
+            <td><label class="form-label" for="middlename">Middle Name</label></td>
+            <td colspan="2"><label class="form-label" for="lastname">Last Name</label></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="firstname" name="firstname" class="form-control" ></td>
+            <td><input type="text" id="middlename" name="middlename" class="form-control"></td>
+            <td colspan="2"><input type="text" id="lastname" name="lastname" class="form-control"></td>
+          </tr>
+          <tr>
+            <td><label class="form-label" for="DOB">Date of Birth</label></td>
+            <td><label class="form-label" for="SSN">SSN</label></td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td><input type="date" id="DOB" name="DOB" class="form-control"></td>
+            <td><input type="text" id="SSN" name="SSN" class="form-control" pattern="\d{3}-?\d{2}-?\d{4}"></td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td colspan="4"><p id="error"></p></td>
+          </tr>
+          <tr><td>&nbsp</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </table>
+          </fieldset>
+
+        <div>
+          <p>
+          <button type="submit" id="log" class="btn btn-primary">Search</button>
+          <button class="btn btn-primary" type="reset">Reset</button>
+        </p>
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+  var input = document.getElementById('SSN');
+  input.oninvalid = function(event) {
+  event.target.setCustomValidity('please input ssn in the format nnn-nn-nnnn');
+}
+</script>
+
+<script>
+    document.getElementById('SSN').addEventListener('input', function (event) {
+    event.target.setCustomValidity('');
+    });
+</script>
+
+<script>
+     let inputField = document.getElementById("SSN");
+
+     inputField.addEventListener('input', function() {
+      let value = inputField.value;
+
+      if (value.length === 3 || value.length === 6) {
+        inputField.value += '-';
+      }
+     });
+  </script>
+
+<script>
+  (function() {
+    var submit = document.getElementById('submit');
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+
+{% endblock %}

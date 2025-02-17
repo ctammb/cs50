@@ -1,0 +1,94 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Special Requests
+{% endblock %}
+
+{% block main %}
+
+<div id="collect2" class="survey-container">
+  <form class="intake-form" name="alacarteForm" id="alacarte" action="/alacarte" method="post" >
+    <h2 class="display-6">Single Form Requests</h2>
+    <p><script> document.write(new Date().toDateString()); </script></p>
+    <br>
+      <fieldset>
+        <table class="input-table">
+        <legend>Select a client:</legend>
+        <br>
+          <tr>
+            <td><label class="form-label" for="csis_number">CSIS Number:</label></td>
+          </tr>
+          <tr>
+            <td><input type="text" class="form-control" id="csis_number" name="csis_number" maxlength="10" required></td>
+          </tr>
+          <tr><td>&nbsp</td></tr>
+          {% if csis_alert %}
+          <tr>
+            <td class="message">For CSIS# {{ csis_number }}:</td>
+            <td class="message">Alert: {{ csis_alert }}</td>
+          </tr>
+          {% endif %}
+        </table>
+      </fieldset>
+
+          <fieldset>
+            <table class="input-table">
+              <legend>Select a form:</legend>
+              <div class="radio-block">
+                <tr>
+                  <td><label for="trigger_roi">
+                  <input type="radio" id="trigger_roi" name="trigger" value="roi" required>
+                  Contact / Update ROI</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label for="print_roi">
+                  <input type="radio" id="print_roi" name="trigger" value="print_roi" required>
+                  Print ROI</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label for="trigger_intake">
+                  <input type="radio" id="trigger_intake" name="trigger" value="intake">
+                  Intake</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label for="print_intake">
+                  <input type="radio" id="print_intake" name="trigger" value="print_intake" required>
+                  Print Intake</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label for="trigger_approvals">
+                  <input type="radio" id="trigger_approvals" name="trigger" value="approvals" required>
+                  Approvals</label>
+                  </td>
+                </tr>
+                  </div>
+
+                <br>
+              </table>
+            </fieldset>
+
+              <hr>
+              <button type="submit" id="alacarte_input" class="btn btn-primary" name="alacarte_input" value="{{csis_number}}" onclick="checkAndOpen()">Submit</button>
+              <button class="btn btn-primary" type="reset">Reset</button>
+            </p>
+      </form>
+
+      <br>
+    </div>
+
+    <script>
+      function checkAndOpen() {
+          if (document.getElementById('print_roi').checked) {
+              var newWindow = window.open("{{ url_for('alacarte') }}", "_blank");
+              newWindow.focus();
+          } else {
+              // Handle other cases
+          }
+      }
+      </script>
+
+{% endblock %}

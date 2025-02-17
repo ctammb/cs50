@@ -1,0 +1,627 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Contact
+{% endblock %}
+
+{% block main %}
+
+<div id="collectContact" class="survey-container">
+
+      <form name="contact" id="contact" class="intake-form" action="/contact" method="post" autocomplete="off">
+        <h2 class="display-6">Welcome Worksheet</h2>
+        <p><script> document.write(new Date().toDateString()); </script></p>
+        <h6>CSIS No: {{ csis_number }} </h6>
+        <br>
+
+        <fieldset>
+          <legend>Clarity Profile</legend>
+
+        <table class="input-table">
+
+        <tr>
+          <td><label class="form-label" for="firstname">First Name:</label></td>
+          <td><input id="firstname" name="firstname" class="form-control" value={{ client.firstname }}></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="middlename">Middle Name:</label></td>
+          <td><input id="middlename" name="middlename" class="form-control" value={{ client.middlename }}></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="lastname">Last Name:</label></td>
+          <td style="width: 400px"><input id="lastname" name="lastname" class="form-control" value={{ client.lastname }}></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label>Existing Alert:</label></td>
+          <td>{{ csis_alert }}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="dob">Date of Birth:</label></td>
+          <td><input id="dob" name="dob" type="date" class="form-control" value={{ dob }}></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="ssn">Social Security Number:</label></td>
+          <td><input id="ssn" name="ssn" class="form-control" pattern="\d{3}-?\d{2}-?\d{4}" size="20" minwidth="11" maxwidth="11" value={{ client.ssn }} ></td>
+          <td></td>
+        </tr>
+        <tr><td>&nbsp</td><td></td><td></td></tr>
+        </table>
+      </fieldset>
+
+        <hr>
+        <fieldset>
+          <legend>New Alert</legend>
+        <table class="input-table">
+
+            <tr>
+              <td><label class="form-label" for="alert">New Alert:</label></td>
+              <td colspan="3"><input id="alert" name="alert" class="form-control"></td>
+            </tr>
+            <tr><td>&nbsp</td></tr>
+        </fieldset>
+        </table>
+        <hr>
+
+
+        <fieldset>
+          <legend>Contact Information</legend>
+          <table class="input-table">
+
+          <tr>
+            <td><label class="form-label" for="client_email">Client email:</label></td>
+            <td colspan="3"><input type="email" id="client_email" name="client_email" class="form-control"
+            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$"
+            value={{ client.email if client.email is not none }}>
+            </td>
+          </tr>
+
+        <tr>
+          <td><label class="form-label" for="cell">Cell Phone Number:</label></td>
+          <td><input type="tel" id="cell" name="cell" class="form-control" pattern="\d{3}-?\d{3}-?\d{4}" size="20" minwidth="12" maxwidth="12" value={{ client.phone if client.phone is not none }}></td>
+          <td>&nbsp</td>
+        </tr>
+
+        <tr>
+          <td><label class="form-label" for="address1">Address Line 1:</label></td>
+          <td colspan="3"><input type="text" id="address1" name="address1" class="form-control" value="{{ client.client_location_addr1 if client.client_location_addr1 is not none }}"></td>
+        </tr>
+
+        <tr>
+          <td><label class="form-label" for="address2">Address Line 2:</label></td>
+          <td colspan="3"><input type="text" id="address2" name="address2" class="form-control" value="{{ client.client_location_addr2 if client.client_location_addr2 is not none }}"></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="city">City</label></td>
+          <td><label class="form-label" for="state">State</label></td>
+          <td><label class="form-label" for="zip">ZIP code</label></td>
+          <td><label class="form-label" for="county">County</label></td>
+        </tr>
+        <tr>
+          <td ><input type="text" id="city" name="city" class="form-control" value="{{ client.client_location_city if client.client_location_city is not none }}"></td>
+          <td >
+            <select size="1" class="form-control mx-auto"
+            id="state" name="state" type="number">
+            <option disabled selected>select state</option>
+              {% for state in states %}
+                {% if state.code == client.client_location_state %}
+                  <option value="{{ client.client_location_state }}" selected>{{ client.client_location_state }}</option>
+                {% else %}
+                  <option value="{{ state.code }}">{{ state.code }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </td>
+          <td ><input type="text" id="zip" name="zip" class="form-control" value="{{ client.client_location_zip if client.client_location_zip is not none }}"
+            pattern="\d{5}(?:-\d{4})?|[a-zA-Z]\d[a-zA-Z] ?\d[a-zA-Z]\d"></td>
+          <td ><input type="text" id="county" name="county" class="form-control" value="{{ client.client_location_county if client.client_location_county is not none }}"></td>
+        </tr>
+        <tr><td>&nbsp</td></tr>
+        </table>
+        </fieldset>
+        <hr>
+        <fieldset>
+          <legend>Emergency Contact</legend>
+          <table class="input-table">
+
+            <tr>
+              <td><label class="form-label" for="emergencyname">Name:</label></td>
+              <td><input type="text" id="emergencyname" name="emergencyname" class="form-control" value="{{ client.emergency_name if client.emergency_name is not none }}"></td>
+            </tr>
+            <tr>
+              <td><label class="form-label" for="emergencyphone">Phone:</label></td>
+              <td><input type="tel" id="emergencyphone" name="emergencyphone" class="form-control" pattern="\d{3}-?\d{3}-?\d{4}" size="20" minwidth="12" maxwidth="12" value="{{ client.emergency_phone if client.emergency_phone is not none }}"></td>
+            </tr>
+          <tr>
+            <td><label class="form-label" for="emergencyaddress">Emergency Contact Address if no phone</label></td>
+            <td colspan="3"><input type="text" id="emergencyaddress" name="emergencyaddress" class="form-control"  value="{{ client.emergency_address if client.emergency_address is not none }}"></td>
+          </tr>
+          <tr><td>&nbsp</td></tr>
+        </table>
+        </fieldset>
+              <hr>
+
+              <fieldset>
+                <legend>Medical Conditions</legend>
+                <table class="input-table">
+                  {% for medical_condition in medical_conditions %}
+                    {% if loop.last %}
+                        <tr>
+                          <td><input type="checkbox" id="{{ medical_condition.condition }}" name="medical_condition" value="{{ medical_condition.id }}"
+                            {% for med_cond in med_conds %}
+                            {% if med_cond.condition_id == medical_condition.id %} checked {% endif %}
+                            {% endfor %}
+                            ></td>
+                          <td><label for="{{ medical_condition.condition }}">{{ medical_condition.condition }}</label></td>
+                          <td><input type="text" id="othermedtext" name="othermedtext" class="form-control" value={{ client.med_text if client.med_text is not none }}></td>
+                          <td><label for="othermedtext">if other, please state</label></td>
+                        </tr>
+                    {% else %}
+                      <tr>
+                        <td><input type="checkbox" id="{{medical_condition.condition}}" name="medical_condition" value="{{ medical_condition.id }}"
+                          {% for med_cond in med_conds %}
+                          {% if med_cond.condition_id == medical_condition.id %} checked {% endif %}
+                          {% endfor %}
+                          ></td>
+                        <td><label for="{{medical_condition.condition}}">{{medical_condition.condition}}</label></td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+
+                  <tr><td>&nbsp</td></tr>
+                </table>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+                <legend>Are you a veteran?</legend>
+                <table class="input-table">
+                  <tr><th>Veteran Status</th><div class="radio-block">
+                    <td><label for="veteranYes">
+                    <input type="radio" id="veteranYes" name="veteran" value="yes" {% if client.veteran == "yes" %} checked {% endif %}>
+                    yes</label></td>
+                    <td><label for="veteranNo">
+                    <input type="radio" id="veteranNo" name="veteran" value="no" {% if client.veteran == "no" %} checked {% endif %}>
+                    no</label></td>
+                    <td><label for="DD214">
+                      <input type="checkbox" id="DD214" name="DD214" value="{{ client.dd214 if client.dd214 is not none }}">
+                      DD214</label></td>
+                  </tr>
+                  <tr><td>&nbsp</td></tr>
+                  </table>
+              </fieldset>
+                <hr>
+
+                <fieldset>
+                  <legend>Race and Ethnicity</legend>
+                  <table class="input-table">
+                    {% for race_ethnicity in race_ethnicities %}
+                      {% if loop.last %}
+                        <tr>
+                          <td><input type="checkbox" id="{{ race_ethnicity.race_ethnicity }}" name="race_ethnicity" value="{{ race_ethnicity.id }}"
+                            {% for race in races %}
+                            {% if race.race_id == race_ethnicity.id %} checked {% endif %}
+                            {% endfor %}>
+                          </td>
+                          <td><label for="{{ race_ethnicity.race_ethnicity }}">{{ race_ethnicity.race_ethnicity }}</label></td>
+                          <td><input type="text" id="race_othertext" name="race_othertext" class="form-control" value={{ client.race_othertext if client.race_othertext is not none }}></td>
+                          <td><label for="race_othertext">if other, please state</label></td>
+                        </tr>
+                      {% else %}
+                        <tr>
+                        <td><input type="checkbox" id="{{ race_ethnicity.race_ethnicity }}" name="race_ethnicity" value="{{ race_ethnicity.id }}"
+                          {% for race in races %}
+                          {% if race.race_id == race_ethnicity.id %} checked {% endif %}
+                          {% endfor %}>
+                        </td>
+                        <td><label for="{{ race_ethnicity.race_ethnicity }}">{{ race_ethnicity.race_ethnicity }}</label></td>
+                      </tr>
+                      {% endif %}
+                    {% endfor %}
+
+                    <tr><td>&nbsp</td></tr>
+                  </table>
+                </fieldset>
+                <hr>
+
+                <fieldset>
+                  <legend>Gender Identity</legend>
+                  <table class="input-table">
+                    {% for gender in genders %}
+                      {% if loop.last %}
+                          <tr>
+                            <td><input type="radio" id="{{ gender.gender }}" name="gender" value="{{ gender.id }}"
+                              {% if client.gender_id == gender.id %} checked {% endif %}></td>
+                            <td><label for="{{ gender.gender }}">{{ gender.gender }}</label></td>
+                            <td><input type="text" id="gender_othertext" name="gender_othertext" class="form-control" value={{ client.gender_othertext if client.gender_othertext is not none }}></td>
+                            <td><label for="gender_othertext">if other, please state</label></td>
+                          </tr>
+                      {% else %}
+                          <tr>
+                            <td><input type="radio" id="{{ gender.gender }}" name="gender" value="{{ gender.id }}"
+                              {% if client.gender_id == gender.id %} checked {% endif %}></td>
+                            <td><label for="{{ gender.gender }}">{{ gender.gender }}</label></td>
+                          </tr>
+                      {% endif %}
+                    {% endfor %}
+
+                    <tr><td>&nbsp</td></tr>
+                  </table>
+                </fieldset>
+                <hr>
+
+                <input id="hh_row_count" name="hh_row_count" type="number" style="display:none;">
+                <fieldset>
+                  <legend>Dependent Information</legend><p>Please list all legal dependents you wish to include in your authorization to share data with other agencies, NOT including yourself</legend>
+                  <div id="display">
+
+                    <table id="household" class="input-table">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>SSN</th>
+                          <th>Date of Birth</th>
+                          <th>Gender</th>
+                          <th>Relationship to you</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="hh-row">
+                          <td id="display_row_count"></td>
+                          <td><input type="text" id="firstname-1" name="firstname-1" class="form-control household-name1"></td>
+                          <td><input type="text" id="lastname-1" name="lastname-1" class="form-control household-name2"></td>
+                          <td><input type="text" id="ssn-1" name="ssn-1" class="form-control"></td>
+                          <td><input type="date" id="dob-1" name="dob-1" class="form-control household-dob"></td>
+                          <td>
+                            <select size="1" class="form-control mx-auto" id="gender-1"
+                            name="gender-1" type="number">
+                                <option value=0 disabled selected>select one</option>
+                                {% for gender in genders %}
+                                    <option value="{{ gender.id }}">{{ gender.gender }}</option>
+                                {% endfor %}
+                            </select></td>
+                            <td>
+                            <select size="1" class="form-control mx-auto" id="relationship-1"
+                            name="relationship-1" type="number">
+                                <option value=0 disabled selected>select one</option>
+                                {% for relationship in relationships %}
+                                    <option value="{{ relationship.id }}">{{ relationship.relationship }}</option>
+                                {% endfor %}
+                            </select></td>
+                          <td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p id="error"></p>
+                    <button type="button" id="addrow" name="addrow" class="btn btn-primary">Add Row</button>
+                    <button type="button" id="deleteRow" name="deleteRow" class="btn btn-primary">Delete Last Row</button>
+                    <button type="button" id="resetHH" name="resetHH" class="btn btn-primary">Reset</button>
+                    </div>
+                </fieldset>
+                <br><br>
+                <fieldset>
+                  <table class="input-table">
+                    <tr>
+                      <td><input type="checkbox" id="roi_approval" name="roi_approval"></td>
+                      <td><label for="roi_approval">Check this box if you accept the terms and conditions of being a Turning Points client <a href="/static/roi.pdf" target="_blank">ROI</a></label></td>
+                    </tr>
+                <tr>
+                  <td><label for="signature">Client Signature</label></td>
+                  <td><textarea id="signature" name="signature" cols="80" rows="3" class="form-control"></textarea></td>
+                  </tr>
+                  <tr><td>&nbsp</td></tr>
+              </table>
+              </fieldset>
+
+              <div>
+                <p>
+                <button type="submit" id="contact" class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" type="reset">Reset</button>
+              </p>
+              </div>
+
+          </form>
+
+    </div>
+
+      <br>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var display_row_count = 1;
+    document.getElementById("display_row_count").innerHTML = display_row_count;
+});
+</script>
+
+<script>
+  function deleteRow() {
+    var error = document.getElementById("error");
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    if (row_count > 2) {
+        table.deleteRow(-1);
+    }
+    else {
+      error = "No rows to delete";
+    }
+  }
+</script>
+
+<script>
+  document
+    .getElementById("deleteRow")
+    .addEventListener('click', deleteRow);
+</script>
+
+<script>
+  function resetHH() {
+    var table = document.getElementById('household');
+    var row_count = table.rows.length;
+    console.log(row_count);
+    if (row_count > 2) {
+      for (let i = 0; i < (row_count - 2); i++) {
+        console.log(i);
+        table.deleteRow(-1);
+      }
+    }
+
+    row_count = table.rows.length;
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count - 1;
+
+    document.getElementById("firstname-1").value = "";
+    console.log(document.getElementById("firstname-1").value);
+    document.getElementById("lastname-1").value = "";
+    document.getElementById("ssn-1").value = "";
+    document.getElementById("dob-1").value = "";
+    document.getElementById("gender-1").value = 0;
+    document.getElementById("relationship-1").value = "";
+
+}
+</script>
+
+<script>
+  document
+    .getElementById("resetHH")
+    .addEventListener('click', resetHH);
+</script>
+
+<script>
+  function addrow() {
+    var error = document.getElementById("error");
+
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    console.log(row_count);
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count;
+    console.log(hh_row_count.value);
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    var lastName1 = lastRow.querySelector(".household-name1").value;
+    console.log(lastName1);
+    var lastName2 = lastRow.querySelector(".household-name2").value;
+    console.log(lastName2);
+    var lastdob = lastRow.querySelector(".household-dob").value;
+    console.log(lastdob);
+    if (lastName1 !== "" && lastName2 !== "" && lastdob !== "") {
+      let row = document.createElement("tr");
+      let cell0 = document.createElement("td");
+      let cell1 = document.createElement("td");
+      let cell2 = document.createElement("td");
+      let cell3 = document.createElement("td");
+      let cell4 = document.createElement("td");
+      let cell5 = document.createElement("td");
+      let cell6 = document.createElement("td");
+
+      cell0.innerHTML = row_count;
+      cell1.innerHTML = `<input type="text" id="firstname-${row_count}" name="firstname-${row_count}" class="form-control household-name1" required>`;
+      cell2.innerHTML = `<input type="text" id="lastname-${row_count}" name="lastname-${row_count}" class="form-control household-name2" required>`;
+      cell3.innerHTML = `<input type="text" id="ssn-${row_count}" name="ssn-${row_count}" class="form-control">`;
+      cell4.innerHTML = `<input type="date" id="dob-${row_count}" name="dob-${row_count}" class="form-control household-dob" required>`;
+      cell5.innerHTML = `<select size="1" class="form-control mx-auto" id="gender-${row_count}"` +
+                    `name="gender-${row_count}" type="number">` +
+                        `<option value=0 disabled selected>select one</option>` +
+                        `{% for gender in genders %}` +
+                            `<option value="{{ gender.id }}">{{ gender.gender }}</option>` +
+                        `{% endfor %}` +
+                    `</select>`;
+      cell6.innerHTML = `<select size="1" class="form-control mx-auto" id="relationship-${row_count}"` +
+                    `name="relationship-${row_count}" type="number">` +
+                        `<option value=0 disabled selected>select one</option>` +
+                        `{% for relationship in relationships %}` +
+                            `<option value="{{ relationship.id }}">{{ relationship.relationship }}</option>` +
+                        `{% endfor %}` +
+                    `</select>`;
+
+      row.appendChild(cell0);
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      row.appendChild(cell3);
+      row.appendChild(cell4);
+      row.appendChild(cell5);
+      row.appendChild(cell6);
+
+      table.appendChild(row);
+      error.textContent = "";
+
+      console.log( $("#items").html() );
+    }
+    else {
+      console.log("fields are empty");
+      error.textContent = "first and last name and date of birth required";
+      error.style.color = "red";
+      addrow.preventDefault;
+      // Display an error message
+    }
+  }
+</script>
+
+  <script>
+        document
+          .getElementById("addrow")
+          .addEventListener('click', addrow);
+  </script>
+
+    <script>
+        $('input[type=radio][name="county"]').change(function() {
+          console.log($(this).val())
+          if($(this).val() == 'yes') {
+            $("#manateeDisplay").show();
+        } else {
+            $("#manateeDisplay").hide();
+        }
+      });
+    </script>
+      <script>
+          $('input[type=radio][name="unhoused"]').change(function() {
+            console.log($(this).val())
+            if($(this).val() == 'yes') {
+              $("#homelessDisplay").show();
+          } else {
+              $("#homelessDisplay").hide();
+          }
+        });
+      </script>
+
+<script>
+  (function() {
+    var submit = document.getElementById('submit');
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+<script>
+    function toDateInputValue(dateObject){
+        const local = new Date(dateObject);
+        local.setMinutes(dateObject.getMinutes() - dateObject.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    };
+    document.getElementById('date').value = toDateInputValue(new Date());
+</script>
+
+<script>
+  var emailInput = document.getElementById('client_email');
+  emailInput.oninvalid = function(event) {
+  event.target.setCustomValidity('email must contain @ and proper domain name');
+}
+</script>
+
+<script>
+  var cellInput = document.getElementById('cell');
+  cellInput.oninvalid = function(event) {
+  event.target.setCustomValidity('phone numbers must be in the format nnn-nnn-nnnn');
+}
+</script>
+
+<script>
+  var ssnInput = document.getElementById('ssn');
+  ssnInput.oninvalid = function(event) {
+  event.target.setCustomValidity('social security numbers must be in the format nnn-nn-nnnn');
+}
+</script>
+
+<script>
+  var emergencyphoneInput = document.getElementById('emergencyphone');
+  emergencyphoneInput.oninvalid = function(event) {
+  event.target.setCustomValidity('phone numbers must be in the format nnn-nnn-nnnn');
+}
+</script>
+
+<script>
+  document.getElementById('client_email').addEventListener('input', function (event) {
+  event.target.setCustomValidity('');
+  });
+</script>
+
+<script>
+  document.getElementById('cell').addEventListener('input', function (event) {
+  event.target.setCustomValidity('');
+  });
+</script>
+
+<script>
+  document.getElementById('emergencyphone').addEventListener('input', function (event) {
+  event.target.setCustomValidity('');
+  });
+</script>
+
+<script>
+    let cellField = document.getElementById("cell");
+
+    cellField.addEventListener('input', function() {
+    let cellValue = cellField.value;
+
+    if (cellValue.length === 3 || cellValue.length === 7) {
+      cellField.value += '-';
+    }
+    });
+</script>
+
+<script>
+  let homeField = document.getElementById("emergencyphone");
+
+  homeField.addEventListener('input', function() {
+   let homeValue = homeField.value;
+
+   if (homeValue.length === 3 || homeValue.length === 7) {
+     homeField.value += '-';
+   }
+  });
+</script>
+
+<script>
+    function formatSSN(ssn) {
+    // remove all non-dash and non-numerals
+    var val = ssn.replace(/[^\d-]/g, '');
+
+    // add the first dash if number from the second group appear
+    val = val.replace(/^(\d{3})-?(\d{1,2})/, '$1-$2');
+
+    // add the second dash if numbers from the third group appear
+    val = val.replace(/^(\d{3})-?(\d{2})-?(\d{1,4})/, '$1-$2-$3');
+
+    // remove misplaced dashes
+    val = val.split('').filter((val, idx) => {
+      return val !== '-' || idx === 3 || idx === 6;
+    }).join('');
+
+    // enforce max length
+    return val.substring(0, 11);
+  }
+
+  // bind our function
+  document.getElementById("ssn").onkeyup = function(e) {
+    this.value = formatSSN(this.value);
+  }
+</script>
+
+<script>
+  (function() {
+    var submit = document.getElementById('submit');
+
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+
+<script>
+$(function () {
+      $( "#csis-display" ).click(function() {
+        window.open("/show_csis", "CSIS", "popup");
+      });
+    });
+</script>
+
+{% endblock %}

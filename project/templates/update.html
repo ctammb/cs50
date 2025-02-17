@@ -1,0 +1,25 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Password Update
+{% endblock %}
+
+{% block main %}
+
+<div class="survey-container" >
+    <h2 class="display-6">Password Update</h2>
+        <form class="form-space" action="/update" method="post">
+            <table class="input-table">
+                <tr><th>User ID: {{ user_id }}</th></tr>
+                <tr><th>User Name: {{ user_name }}</th></tr>
+                <tr><th><input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="password" placeholder="Current Password" type="password"></th></tr>
+                <tr><th><input class="form-control mx-auto w-auto" name="password_update" placeholder="New Password" type="password"></th></tr>
+                <tr><th><input class="form-control mx-auto w-auto" name="confirm" placeholder="Confirm Password" type="password"></th></tr>
+                </table>
+                <br>
+                <button class="btn btn-primary" type="submit">Submit Change</button>
+        </form>
+
+    </div>
+
+{% endblock %}

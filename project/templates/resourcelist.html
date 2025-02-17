@@ -1,0 +1,56 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Resource-List
+{% endblock %}
+
+{% block main %}
+
+<div id="collect4" class="survey-container">
+
+        <div><h2 class="display-6">Resource List</h2>
+          <br>
+
+        <div id="category_selection">
+          <select size="5" class="form-control mx-auto"
+          id="resource_category" name="resource_category" type="number">
+              {% for category in categories %}
+                  <option value={{category.id}}>{{category.category_name}}</option>
+              {% endfor %}
+          </select>
+       </div>
+      </div>
+
+            <div id="displayResource" class="survey-container">
+                    <div class="list-group">
+                        {% for resource in resources %}
+                        <a href="{{resource.website}}" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{resource.resource_name}}</h5>
+                          </div>
+                          <p class="mb-1">{{resource.resource_description}}</p>
+                          <small><bold>{{resource.phone}}</bold></small>
+                        </a>
+                        {% endfor %}
+                      </div>
+
+            </div>
+
+          </div>
+
+          <script>
+            document.getElementById('resource_category').addEventListener('input', function() {
+            var filterValue = this.value();
+            var resources = document.querySelectorAll('#resource-list li');
+
+            resources.forEach(function(resource) {
+              if (resource.getAttribute('data-category').toLowerCase().includes(filterValue)) {
+                resource.style.display = '';
+              } else {
+                resource.style.display = 'none';
+              }
+              });
+            });
+          </script>
+
+{% endblock %}

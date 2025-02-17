@@ -1,0 +1,84 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+        <section class="py-3 text-center container">
+          <div class="row py-lg-3 index-container">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="display-4">Welcome to TP Navigator</h1>
+              <p class="lead text-muted">TP Navigator is for everyone at Turning Points. Designed to organize service delivery for all of our Turning Points clients.
+              </p>
+              <p>
+                <a href="https://suncoast.clarityhs.com" target="_blank" class="btn btn-primary my-2">Clarity</a>
+                <a href="https://tpmanatee.org" target="_blank" class="btn btn-primary my-2">TP Manatee</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="album py-4 bg-light">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="card-top">
+                    <div class="card-title">Assessment</div>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">The point of data collection for new and exisitng clients. Also includes questions and answers for tough situations.
+                    </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <a href="/checkin" class="btn btn-sm btn-outline-secondary">Check In</a>
+                        <a href="/identify" class="btn btn-sm btn-outline-secondary">Intake</a>
+                        <a href="/alacarte" class="btn btn-sm btn-outline-secondary">Single Forms</a>
+                        <a href="/situations" class="btn btn-sm btn-outline-secondary">Situations</a>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="card-top">
+                    <div class="card-title">The Plan</div>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Define your plan here and save it under the client's CSIS number. You can always return to it for updating or printing.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <a href="/plan" class="btn btn-sm btn-outline-secondary">Create a Plan</a>
+                        <a href="/select_plan" class="btn btn-sm btn-outline-secondary">Access your Plans</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card shadow-sm">
+                  <div class="card-top">
+                    <div class="card-title">Resources</div>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Access all available resources by service type (add, edit, archive, and print)</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <a href="/resources" class="btn btn-sm btn-outline-secondary">Add/Edit/Archive</a>
+                        <a href="/resourcelist" class="btn btn-sm btn-outline-secondary">List and Print</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+{% endblock %}

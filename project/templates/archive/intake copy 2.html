@@ -1,0 +1,436 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Intake
+{% endblock %}
+
+{% block main %}
+
+<div id="collect" class="survey-container">
+  <form name="intake" id="intake" class="intake-form" action="/intake" method="post" >
+    <h2 class="display-6">Welcome Worksheet</h4>CSIS No: {{ csis_number }}</h4>
+    <br>
+    <input id="hh_row_count" name="hh_row_count" type="number" style="display:none;">
+        <fieldset>
+          <legend>Household Information</legend><p>Please list this information for all other individuals in your home, NOT including yourself</legend>
+          <div id="display">
+
+            <table id="household" class="input-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>SSN</th>
+                  <th>Date of Birth</th>
+                  <th>Gender</th>
+                  <th>Relationship to you</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hh-row">
+                  <td id="display_row_count"></td>
+                  <td><input type="text" id="firstname-1" name="firstname-1" class="form-control household-name1"></td>
+                  <td><input type="text" id="lastname-1" name="lastname-1" class="form-control household-name2"></td>
+                  <td><input type="text" id="ssn-1" name="ssn-1" class="form-control"></td>
+                  <td><input type="date" id="dob-1" name="dob-1" class="form-control household-dob"></td>
+                  <td>
+                    <select size="1" class="form-control mx-auto" id="gender-1"
+                    name="gender-1" type="number">
+                        <option value=0 disabled selected>select one</option>
+                        {% for gender in genders %}
+                            <option value="{{ gender.id }}">{{ gender.gender }}</option>
+                        {% endfor %}
+                    </select></td>
+                  <td><input type="text" id="relationship-1" name="relationship-1" class="form-control"></td>
+                </tr>
+              </tbody>
+            </table>
+            <p id="error"></p>
+            <button type="button" id="addrow" name="addrow" class="btn btn-primary">Add Row</button>
+            <button type="button" id="deleteRow" name="deleteRow" class="btn btn-primary">Delete Last Row</button>
+            <button type="button" id="resetHH" name="resetHH" class="btn btn-primary">Reset</button>
+            </div>
+        </fieldset>
+
+          <fieldset>
+          <legend>Help us understand your situation</legend>
+          <table class="input-table">
+            <tr><td>Are your kids registered in school?</td>
+              <div class="radio-block">
+              <td><label for="schoolYes">
+              <input type="radio" id="schoolYes" name="school" value="yes" required>
+              Yes</label></td>
+              <td><label for="schoolNo">
+              <input type="radio" id="schoolNo" name="school" value="no" required>
+              No</label></td>
+              <td><label for="schoolNA">
+                <input type="radio" id="schoolNA" name="school" value="no kids" required>
+                No kids</label></td>
+                </div>
+            </tr>
+            <tr><td>Are you unhoused?</td>
+              <div class="radio-block">
+              <td><label for="unhousedYes">
+              <input type="radio" id="unhousedYes" name="unhoused" value="yes" required>
+              Yes</label></td>
+              <td><label for="unhousedNo">
+              <input type="radio" id="unhousedNo" name="unhoused" value="no" required>
+              No</label></td>
+              </div>
+            </tr>
+            </table>
+            </fieldset>
+
+            <fieldset id="homelessDisplay">
+              <table id="intake-detail" class="input-table">
+              <div class="radio-block">
+                    <tr><td><input type="radio" name="homeless_time_id" id="htimeOp0" value="0" hidden checked></td></tr>
+                    <tr>
+                    <td><td>If yes, for how long?</td></td>
+                    <td><label for="htimeOp1">
+                    <input type="radio" name="homeless_time_id" id="htimeOp1" value="1" required>
+                    Less than 90 days</label></td>
+                    <td><label for="htimeOp2">
+                    <input type="radio" name="homeless_time_id" id="htimeOp2" value="2">
+                    Between 4 months and 1 year</label></td>
+                    <td><label for="htimeOp3">
+                    <input type="radio" name="homeless_time_id" id="htimeOp3" value="3">
+                    Longer than 1 year</label></td>
+                  </tr>
+              </div>
+              </table>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+                <table class="input-table">
+                  <tr><td>Where did you sleep last night?</td>
+                    <td colspan="2"><input type="text" id="sleep" name="sleep" class="form-control"></td>
+                  </tr>
+                  <tr><td>Do you feel safe?</td>
+                    <div class="radio-block">
+                    <td><label for="safeYes">
+                    <input type="radio" id="safeYes" name="safe" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="safeNo">
+                    <input type="radio" id="safeNo" name="safe" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you have enough food each month?</td>
+                    <div class="radio-block">
+                    <td><label for="foodYes">
+                    <input type="radio" id="foodYes" name="food" value="no" required>
+                    Yes</label></td>
+                    <td><label for="foodNo">
+                    <input type="radio" id="foodNo" name="food" value="yes">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you receive SNAP benefits/food stamps?</td>
+                    <div class="radio-block">
+                    <td><label for="snapYes">
+                    <input type="radio" id="snapYes" name="snap" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="snapNo">
+                    <input type="radio" id="snapNo" name="snap" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you have medical/health insurance (including Medicare or Medicaid)?</td>
+                    <div class="radio-block">
+                    <td><label for="insuranceYes">
+                    <input type="radio" id="insuranceYes" name="insurance" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="insuranceNo">
+                    <input type="radio" id="insuranceNo" name="insurance" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you have any urgent health concerns?</td>
+                    <div class="radio-block">
+                    <td><label for="unhealthYes">
+                    <input type="radio" id="unhealthYes" name="unhealth" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="unhealthNo">
+                    <input type="radio" id="unhealthNo" name="unhealth" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Are there any mental health services you feel you need?</td>
+                    <div class="radio-block">
+                    <td><label for="mentalhealthYes">
+                    <input type="radio" id="mentalhealthYes" name="mentalhealth" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="mentalhealthNo">
+                    <input type="radio" id="mentalhealthNo" name="mentalhealth" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Are there any substance use or addiction services you feel you need?</td>
+                    <div class="radio-block">
+                    <td><label for="subabuseYes">
+                    <input type="radio" id="subabuseYes" name="subabuse" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="subabuseNo">
+                    <input type="radio" id="subabuseNo" name="subabuse" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you currently have employment or other income?</td>
+                    <div class="radio-block">
+                    <td><label for="incomeYes">
+                    <input type="radio" id="incomeYes" name="income" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="incomeNo">
+                    <input type="radio" id="incomeNo" name="income" value="no">
+                    No</label></td>
+                    </div>
+                  </tr>
+                  <tr><td>Do you have access to transportation?</td>
+                    <div class="radio-block">
+                    <td><label for="carYes">
+                    <input type="radio" id="carYes" name="car" value="yes" required>
+                    Yes</label></td>
+                    <td><label for="carNo">
+                    <input type="radio" id="carNo" name="car" value="no">
+                    No</label></td>
+                    </div>
+                    <td><td>If yes, what kind?</td></td>
+                      <td colspan="0"><input type="text" id="transportation_type" name="transportation_type" class="form-control">
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>How did you hear about Turning Points?</td>
+                    <td colspan="4"><input type="text" id="hear_about" name="hear_about" class="form-control">
+                    </td>
+                  </tr>
+                  <tr><td colspan="6">Anything else you want us to know about your situation?</td></tr>
+                      <tr><td colspan="6"><textarea rows="3" cols="60" id="more" name="more" class="form-control"></textarea>
+                      </td></tr>
+                  </tr>
+
+                  </table>
+                </fieldset>
+          <hr>
+
+            <fieldset>
+              <legend>Turning Points Service Requests</legend>
+              <br>
+              <table class="input-table">
+              {% for service in services %}
+                <tr>
+                <td><input type="checkbox" id="{{service.service_shortname}}" name="{{service.service_shortname}}" value={{service.id}}></td>
+                <td><label for="{{service.service_shortname}}">{{service.service_name}}</label></td>
+                </tr>
+                {% endfor %}
+                <tr><td>&nbsp</td></tr>
+              </table>
+            </fieldset>
+
+            <hr>
+
+              <fieldset>
+                <legend>Special circumstance?</legend>
+                <p>(Do not ask if not freely offered)</p>
+                <table class="input-table">
+                <div class="radio-block">
+                  <tr><td><label for="specialOp0">
+                    <input type="radio" id="specialOp0" name="special" value="n/a" checked required>
+                    NA</label></td></tr>
+                    <tr><td><label for="specialOp1">
+                    <input type="radio" id="specialOp1" name="special" value="Undocumented">
+                    Undocumented</label></td></tr>
+                    <tr><td><label for="specialOp2">
+                    <input type="radio" id="specialOp2" name="special" value="On probation">
+                    On probation</label></td></tr>
+                    <tr><td><label for="specialOp3">
+                    <input type="radio" id="specialOp3" name="special" value="Recently released">
+                    Recently released</label></td></tr>
+                </div>
+                </table>
+                </fieldset>
+                <hr>
+
+          <br>
+          <p><label for="signature">Client Signature</label></p>
+          <p><textarea id="signature" name="signature" rows="5"></textarea></p>
+
+        <div>
+          <p>
+          <button type="submit" id="intake_button" class="btn btn-primary">Submit</button>
+          <button class="btn btn-primary" type="reset">Reset</button>
+        </p>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var display_row_count = 1;
+    document.getElementById("display_row_count").innerHTML = display_row_count;
+});
+</script>
+
+<script>
+  function deleteRow() {
+    var error = document.getElementById("error");
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    if (row_count > 2) {
+        table.deleteRow(-1);
+    }
+    else {
+      error = "No rows to delete";
+    }
+  }
+</script>
+
+<script>
+  document
+    .getElementById("deleteRow")
+    .addEventListener('click', deleteRow);
+</script>
+
+<script>
+ function resetHH() {
+    var table = document.getElementById('household');
+    var row_count = table.rows.length;
+    console.log(row_count);
+    if (row_count > 2) {
+      for (let i = 0; i < (row_count - 2); i++) {
+        console.log(i);
+        table.deleteRow(-1);
+      }
+    }
+
+    row_count = table.rows.length;
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count - 1;
+
+    document.getElementById("firstname-1").value = "";
+    console.log(document.getElementById("firstname-1").value);
+    document.getElementById("lastname-1").value = "";
+    document.getElementById("ssn-1").value = "";
+    document.getElementById("dob-1").value = "";
+    document.getElementById("gender-1").value = 0;
+    document.getElementById("relationship-1").value = "";
+
+}
+</script>
+
+<script>
+  document
+    .getElementById("resetHH")
+    .addEventListener('click', resetHH);
+</script>
+
+<script>
+  function addrow() {
+    var error = document.getElementById("error");
+
+    var table = document.getElementById("household");
+    var row_count = table.rows.length;
+    console.log(row_count);
+    var hh_row_count = document.getElementById("hh_row_count");
+    hh_row_count.value = row_count;
+    console.log(hh_row_count.value);
+    var lastRow = table.rows[row_count - 1];
+    console.log(lastRow);
+    var lastName1 = lastRow.querySelector(".household-name1").value;
+    console.log(lastName1);
+    var lastName2 = lastRow.querySelector(".household-name2").value;
+    console.log(lastName2);
+    var lastdob = lastRow.querySelector(".household-dob").value;
+    console.log(lastdob);
+    if (lastName1 !== "" && lastName2 !== "" && lastdob !== "") {
+      let row = document.createElement("tr");
+      let cell0 = document.createElement("td");
+      let cell1 = document.createElement("td");
+      let cell2 = document.createElement("td");
+      let cell3 = document.createElement("td");
+      let cell4 = document.createElement("td");
+      let cell5 = document.createElement("td");
+      let cell6 = document.createElement("td");
+
+      cell0.innerHTML = row_count;
+      cell1.innerHTML = `<input type="text" id="firstname-${row_count}" name="firstname-${row_count}" class="form-control household-name1" required>`;
+      cell2.innerHTML = `<input type="text" id="lastname-${row_count}" name="lastname-${row_count}" class="form-control household-name2" required>`;
+      cell3.innerHTML = `<input type="text" id="ssn-${row_count}" name="ssn-${row_count}" class="form-control">`;
+      cell4.innerHTML = `<input type="date" id="dob-${row_count}" name="dob-${row_count}" class="form-control household-dob" required>`;
+      cell5.innerHTML = `'<select size="1" class="form-control mx-auto" id="gender-${row_count}"' +
+                    'name="gender-${row_count}" type="number">' +
+                        '<option value=0 disabled selected>select one</option>' +
+                        '{% for gender in genders %}' +
+                            '<option value="{{ gender.id }}">{{ gender.gender }}</option>' +
+                        '{% endfor %}' +
+                    '</select>'`;
+      cell6.innerHTML = `<input type="text" id="relationship-${row_count}" name="relationship-${row_count}" class="form-control">`;
+
+      row.appendChild(cell0);
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      row.appendChild(cell3);
+      row.appendChild(cell4);
+      row.appendChild(cell5);
+      row.appendChild(cell6);
+
+      table.appendChild(row);
+      error.textContent = "";
+
+      console.log( $("#items").html() );
+    }
+    else {
+      console.log("fields are empty");
+      error.textContent = "first and last name and date of birth required";
+      error.style.color = "red";
+      addrow.preventDefault;
+      // Display an error message
+    }
+  }
+</script>
+
+  <script>
+        document
+          .getElementById("addrow")
+          .addEventListener('click', addrow);
+  </script>
+
+    <script>
+        $('input[type=radio][name="county"]').change(function() {
+          console.log($(this).val())
+          if($(this).val() == 'yes') {
+            $("#manateeDisplay").show();
+        } else {
+            $("#manateeDisplay").hide();
+        }
+      });
+    </script>
+      <script>
+          $('input[type=radio][name="unhoused"]').change(function() {
+            console.log($(this).val())
+            if($(this).val() == 'yes') {
+              $("#homelessDisplay").show();
+          } else {
+              $("#homelessDisplay").hide();
+          }
+        });
+      </script>
+
+<script>
+  (function() {
+    var submit = document.getElementById('submit');
+    document.addEventListener('click', (event) => {
+      event.target.disabled = true
+    });
+
+  });
+</script>
+
+
+{% endblock %}

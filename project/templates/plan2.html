@@ -1,0 +1,374 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Plan
+{% endblock %}
+
+{% block main %}
+
+        <div id="collect2" class="survey-container">
+        <form class="intake-form" name="planform" action="/save_plan" method="post">
+            <h2 class="display-6">Client Plan</h2>
+            <p><script> document.write(new Date().toDateString()); </script></p>
+
+      <fieldset>
+      <table class="display-table">
+      <tr><td><label>Plan No.: </label></td><td id="plan_id">{{ plan_id }}</td></tr>
+      <tr><td><label>CSIS No: &nbsp </label></td><td>{{ client.csis_number }}  &comma; &nbsp{{ client.firstname }}&nbsp{{ client.middlename }}&nbsp{{ client.lastname }}</td></tr>
+      <tr><td><label>Alert: </label></td><td>{% if client.csis_alert %} {{client.csis_alert}} {% endif %} {% if client.csis_alert and client.alert %} &comma; &nbsp; {% endif %} {% if client.alert %} {{ client.alert }} {% endif %}</td></tr>
+      <tr><td><label>Date of Birth: </label></td><td>{{ dob }}</td></tr>
+      <tr>
+        {% if veteran == 'yes' %}
+          <td><label>Veteran:</label></td><td>Yes</td>
+        {% else %}
+          <td><label>Veteran:</label></td><td>No</td>
+        {% endif %}
+      </tr>
+      <tr>
+          <td><label>Circumstance:</label></td><td>{{ client_circumstance }}</td>
+      </tr>
+      <tr><td><label>Create Date: </label></td><td>{{ now }}</td></tr>
+      <tr><td><label>From services and situations on: </label></td><td>{{ date }}</td>
+      </tr>
+      <tr><td>&nbsp</td><td></td></tr>
+      </table>
+      </fieldset>
+
+      <div>
+        <table class="input-table">
+            <tr><td><label class="form-label" for="plan_notes">Plan Notes:</label>
+            </td></tr>
+            <tr><td>
+                <textarea class="form-control mx-auto" id="plan_notes" name="plan_notes"
+                rows="4" cols="80">{{ plan_notes }}</textarea>
+            </td></tr>
+            <tr><td></td></tr>
+          </table>
+      </div>
+        <br>
+
+          <fieldset>
+            <legend>Situations:</legend>
+            <table class="input-table">
+              {% for situation in situations %}
+
+                {% if situation.input_type_id == 1 %}
+                <tbody>
+                    <tr>
+                    <td>{{ situation.situation_question }}</td>
+                    <td><label for="{{ situation.situation }}Yes">
+                      <input type="radio" id="{{ situation.situation }}Yes" name="{{ situation.situation }}" value="yes" {% if situation.client_response == "yes" %} checked {% endif %}>
+                      Yes</label></td>
+                    <td><label for="{{ situation.situation }}No">
+                      <input type="radio" id="{{ situation.situation }}No" name="{{ situation.situation }}" value="no" {% if situation.client_response == "no" %} checked {% endif %}>
+                      No</label></td>
+                        {% if situation.situation == "school" %}
+                        <td><label for="{{ situation.situation }}NoKids">
+                          <input type="radio" id="{{ situation.situation }}NoKids" name="{{ situation.situation }}" value="no kids" {% if situation.client_response == "no kids" %} checked {% endif %}>
+                          No kids</label></td>
+                          {% else %}
+                          <td>&nbsp</td>
+                        {% endif %}
+                    </tr>
+                  </tbody>
+                {% endif %}
+
+                {% if situation.situation == "homeless_time" %}
+                <tbody id="homelessDisplay">
+                  <tr>
+                    <td>{{ situation.situation_question }}</td>
+                    <td><label for="homeless_time-90">
+                        <input type="radio" id="homeless_time-90" name="homeless_time" value="Less than 90 days" {% if situation.client_response == "Less than 90 days" %} checked {% endif %}>
+                        less than 90 days</label></td>
+                    <td><label for="homeless_time-4-1">
+                        <input type="radio" id="homeless_time-4-1" name="homeless_time" value="4 months - 1 year" {% if situation.client_response == "4 months - 1 year" %} checked {% endif %}>
+                        4 months - 1 year</label></td>
+                    <td><label for="homeless_time-1yr">
+                        <input type="radio" id="homeless_time-1yr" name="homeless_time" value="more than 1 year" {% if situation.client_response == "more than 1 year" %} checked {% endif %}>
+                        more than 1 year</label></td>
+                  </tr>
+                  </tbody>
+                {% endif %}
+
+                {% if situation.situation == "sleep" %}
+                  <tbody id="sleepDisplay">
+                  <tr>
+                      <td>{{ situation.situation_question }}</td>
+                      <td><label for="sleep"><input type="text" id="sleep" name="sleep" class="form-control" value="{{ situation.client_response }}"></label></td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                  </tr>
+                  </tbody>
+                {% endif %}
+
+
+                {% if situation.situation == "transportation_type" %}
+                <tbody id="transportationDisplay">
+                <tr>
+                    <td>{{ situation.situation_question }}</td>
+                    <td><input type="text" id="transportation_type" name="transportation_type" class="form-control" value="{{ situation.client_response }}"></td>
+                    <td>&nbsp</td>
+                    <td>&nbsp</td>
+                </tr>
+                </tbody>
+                {% endif %}
+
+                {% if situation.situation == "hear_about" %}
+                   <tr>
+                  <td>{{ situation.situation_question }}</td>
+                  <td><input type="text" id="hear_about" name="hear_about" class="form-control" value="{{ situation.client_response }}" ></td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                </tr>
+                {% endif %}
+
+                {% if situation.situation == "more" %}
+                <tr>
+                <td>{{ situation.situation_question }}</td>
+                <td>&nbsp</td>
+                <td>&nbsp</td>
+                <td>&nbsp</td>
+                </tr>
+                <tr>
+                <td colspan="4"><textarea id="more" name="more" rows="3" cols="80" class="form-control">{{ situation.client_response }}</textarea></td>
+
+                </tr>
+                {% endif %}
+
+              {% endfor %}
+              </table>
+            <br>
+          </fieldset>
+        <hr>
+
+         <div class="accordion" id="accordionPanelsStayOpenExample">
+
+            {% for service in client_plan_services %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-heading{{ loop.index }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ loop.index }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ loop.index }}">
+                    {{ service.service_name}}
+                </button>
+                </h2>
+                <br>
+                <label for="priority_{{ service.service_shortname }}" style="font-weight:normal; font-size:0.9em; padding-top:2px;">Relative importance (1-5):</label>
+                <input type="range" id="priority_{{ service.service_shortname }}" name="priority_{{ service.service_shortname }}" min="1" max="5" value="{{ service.service_priority }}"></input>
+                <p style="display: inline-block; font-weight: bold; font-size: smaller;"><output id="value_{{ service.service_shortname }}"></output></p>
+
+                <label for="status_{{ service.service_shortname }}" style="font-weight:normal; font-size:0.9em; padding-top:2px; float:right; padding-right: 5px;">Change Status:
+                <select id="status_{{ service.service_shortname }}" name="status_{{ service.service_shortname }}" size="1" class="mx-auto" style="width: 100px; padding-left: 5px; margin-left: 10px;">
+
+                  {% for status in statuses %}
+                  <option value="{{ status.id }}" {% if status.id == service.status_id %}selected{% endif %}>{{ status.status_name }}</option>
+                  {% endfor %}
+                </select>
+                </label>
+
+              <div id="panelsStayOpen-collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ loop.index }}">
+                <div class="accordion-body">
+                  <div id="resource_display{{ loop.index }}" class="list-group list-group-flush border-bottom scrollarea">
+                    <table class="input-table">
+                    <tr>
+                      <td><input type="checkbox" id="note_check_{{ service.service_shortname }}" name="note_check_{{ service.service_shortname }}" value="yes"></input></td>
+                      <td><label for="note_check_{{ service.service_shortname }}">Service Note:</label></td>
+                      <td><textarea class="form-control mx-auto" id="service_note_{{ service.service_shortname }}" name="service_note_{{ service.service_shortname }}"
+                        rows="2" cols="80"></textarea></td>
+                    </tr>
+                    </table>
+                    <table class="input-table">
+                      <tr>
+                        <td>&nbsp</td>
+                        <td>&nbsp</td>
+                        <td>&nbsp</td>
+                      </tr>
+                      </table>
+                      <table class ="input-table">
+
+                      {% for resource in service.resources %}
+
+                          <tr><td><input type="checkbox" id="{{ resource.resource_id }}_{{ service.service_id }}" name="{{ resource.resource_id }}_{{ service.service_id }}" value="{{resource.resource_id}}"></input></td>
+                              <td><label for="{{ resource.resource_id }}_{{ service.service_id }}">{{ resource.resource_name }}</label></td>
+                              </tr>
+                          {% if resource.resource_description %}
+                          <tr><td id="resource_desc_{{resource.resource_id}}" class="mb-1">{{resource.resource_description}}</td><td>&nbsp</td></tr>
+                          {% endif %}
+                          {% if resource.phone %}
+                          <tr><td>{{resource.phone}}</td><td>&nbsp</td></tr>
+                          {% endif %}
+                          {% if resource.instruction_path %}
+                          <tr><td id="resource_path_{{resource.resource_id}}"><a href="/static/{{ resource.instruction_path }}" target="_blank">{{ resource.instruction_path }}</a></td><td>&nbsp</td></tr>
+                          {% endif %}
+
+                      {% endfor %}
+                    </table>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+            {% endfor %}
+            </div>
+            <br>
+            <fieldset>
+              <legend>Additional Service Requests</legend>
+              <br>
+              <table class="input-table">
+              {% for service in services %}
+                <tr>
+                <td><input type="checkbox" id="add_{{service.service_shortname}}" name="add_{{service.service_shortname}}" value={{service.id}}></td>
+                <td><label for="add_{{service.service_shortname}}">{{service.service_name}}</label></td>
+                </tr>
+                {% endfor %}
+                <tr><td>&nbsp</td><td>&nbsp</td></tr>
+              </table>
+            </fieldset>
+
+        <br>
+            <p>
+              <button type="submit" id="save_plan" class="btn btn-primary" name="save_plan">Save and Exit</button>
+              <button type="button" id="print_plan" name="print_plan" class="btn btn-primary" onclick="printPlan()">Print Plan</button>
+              <button class="btn btn-primary" type="reset">Reset</button>
+            </p>
+
+        </form>
+    </div>
+
+  <script>
+      function toggle_display(index) {
+          console.log(index);
+          let table = document.getElementById("resource_display-" + index);
+          console.log(table);
+
+          if
+          (window.getComputedStyle(table).display === 'none' ){
+              table.style.display = 'block';
+          } else {
+              table.style.display = 'none';
+          }
+      }
+  </script>
+
+  <script>
+  function updateDisplay() {
+      const selected = document.querySelector('input[name="unhoused"]:checked');
+      document.getElementById('homelessDisplay').style.display = selected.value === 'yes' ? 'block' : 'none';
+  }
+
+  // Initial state
+  updateDisplay();
+
+  // Event listener for changes
+  document.querySelectorAll('input[name="unhoused"]').forEach(function(radio) {
+      radio.addEventListener('change', updateDisplay);
+  });
+  </script>
+
+<script>
+  function updateSleep() {
+      const selected = document.querySelector('input[name="unhoused"]:checked');
+      document.getElementById('sleepDisplay').style.display = selected.value === 'yes' ? 'block' : 'none';
+  }
+
+  // Initial state
+  updateSleep();
+
+  // Event listener for changes
+  document.querySelectorAll('input[name="unhoused"]').forEach(function(radio) {
+      radio.addEventListener('change', updateSleep);
+  });
+  </script>
+
+<script>
+  function updateTransportation() {
+      const selected = document.querySelector('input[name="car"]:checked');
+      document.getElementById('transportationDisplay').style.display = selected.value === 'yes' ? 'block' : 'none';
+  }
+
+  // Initial state
+  updateTransportation();
+
+  // Event listener for changes
+  document.querySelectorAll('input[name="car"]').forEach(function(radio) {
+      radio.addEventListener('change', updateTransportation);
+  });
+  </script>
+
+
+<script>
+  window.onload = function() {
+    {% for service in client_plan_services %}
+      (function() {
+        const value = document.querySelector("#value_{{ service.service_shortname }}");
+        const input = document.querySelector("#priority_{{ service.service_shortname }}");
+        if (value && input) {
+          value.textContent = input.value;
+          console.log(value.textContent);
+          input.addEventListener("input", (event) =>
+            value.textContent = event.target.value);
+          }
+        else {
+          console.error("Element not found for service: {{ service.service_name }}");
+        }
+      });
+    {% endfor %}
+  }
+</script>
+
+<script>
+  function printPlan() {
+  // Create a new window for printing
+  var printWindow = window.open('', '', 'width=800,height=600');
+  // Write the content to the new window
+  printWindow.document.write('<html><head><title>Client Plan</title>');
+  printWindow.document.write('<link rel="stylesheet" href="/static/style.css" media="print">');
+  printWindow.document.write('</head><body>');
+
+  // Get the content you want to print
+  var printPlanNote = document.getElementById('plan_notes').innerHTML;
+  printWindow.document.write(printPlanNote);
+  var printPlanId = document.getElementById('plan_id').innerHTML;
+  printWindow.document.write(printPlanId);
+
+   {% for service in client_plan_services %}
+  (function() {
+    var service_name = document.querySelector("#value_{{ service.service_shortname }}");
+    printWindow.document.write(service_name);
+    var note_check = document.querySelector("#note_check_{{ service.service_shortname }}");
+    {% if note_check %}
+    var service_note = document.querySelector("#service_note_{{ service.service_shortname }}");
+    printWindow.document.write(service_note);
+    {% endif %}
+    {% for resource in service.resources %}
+      (function() {
+        var resource_check = document.querySelector("#{{ resource.resource_id }}_{{ service.service_id }}");
+        {% if resource_check %}
+          var resource_desc = {{ resource.resource_description }};
+          printWindow.document.write(resource_desc);
+          var resource_no = {{ resource.resource_phone }};
+          printWindow.document.write(resource_no);
+          var resource_path = {{ resource.instruction_path }};
+            {% if resource_path %}
+              let iframe = document.createElement('iframe');
+              iframe.src = '/static/{{ resource.instruction_path }}';
+              document.body.appendChild(iframe);
+
+              // wait for load
+              iframe.onload = function() {
+                iframe.contentWindow.print();
+              };
+            {% endif %}
+          {% endif %}
+        });
+      {% endfor %}
+    });
+    {% endfor %}
+
+  printWindow.document.write('</body></html>');
+  // printWindow.document.close();
+  // printWindow.print();
+}
+
+</script>
+
+
+{% endblock %}

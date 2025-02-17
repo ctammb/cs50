@@ -1,0 +1,219 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Check In
+{% endblock %}
+
+{% block main %}
+
+<div id="collect2" class="survey-container">
+  <form name="checkinForm2" id="checkin" class="login-form" action="/checkin2" method="post" >
+    <h2 class="display-6">Check In</h2>
+    <br>
+    <div id="csis-number"><h5>123456789</h5></div>
+      <fieldset>
+        <legend>Confirmed Client</legend>
+        <table class="styled-table">
+
+          <tr>
+            <th>Date:</th></th:><td><input type="date" id="date" name="date"></td>
+            <th>CSIS Number:</th><td>{{csis_number}}</td>
+          </tr>
+
+          <tr>
+            <th>First Name:</th><td>{{firstname}}</td>
+            <th>Middle Name:</th><td>{{middlename}}</td>
+            <th>Last Name:</th><td>{{lastname}}</td>
+          </tr>
+
+          <tr><td>&nbsp</td></tr>
+          </table>
+          </fieldset>
+          <br>
+
+
+
+               <fieldset>
+                <legend>Turning Points Service Request</legend>
+                <br>
+                <table class="input-table">
+                <tr>
+                <td><input type="hidden" id="hiddenBarber" name="barber" value="no"></td>
+                <td><input type="checkbox" id="barber" name="barber" value="yes"></td>
+                <td><label for="barber">Barber</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenBike" name="bike" value="no"></td>
+                <td><input type="checkbox" id="bike" name="bike" value="yes"></td>
+                <td><label for="bike">Bike</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenBike_lock" name="bike_lock" value="no"></td>
+                <td><input type="checkbox" id="bike_lock" name="bike_lock" value="yes"></td>
+                <td><label for="bike_lock">Bike Lock and Chain</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenBike_repair" name="bike_repair" value="no"></td>
+                <td><input type="checkbox" id="bike_repair" name="bike_repair" value="yes"></td>
+                <td><label for="bike_repair">Bike Repair</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenBc" name="bc" value="no"></td>
+                <td><input type="checkbox" id="bc" name="bc" value="yes"></td>
+                <td><label for="bc">Birth Certificate</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenBus_pass" name="bus_pass" value="no"></td>
+                <td><input type="checkbox" id="bus_pass" name="bus_pass" value="yes"></td>
+                <td><label for="bus_pass">Bus Pass</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenClothing" name="clothing" value="no"></td>
+                <td><input type="checkbox" id="clothing" name="clothing" value="yes"></td>
+                <td><label for="clothing">Clothing</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenComputer" name="computer" value="no"></td>
+                <td><input type="checkbox" id="computer" name="computer" value="yes"></td>
+                <td><label for="computer">Computer Lab</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenDental" name="dental" value="no"></td>
+                <td><input type="checkbox" id="dental" name="dental" value="yes"></td>
+                <td><label for="dental">Dental Clinic</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenEmployment_assist" name="employment_assist" value="no"></td>
+                <td><input type="checkbox" id="employment_assist" name="employment_assist" value="yes"></td>
+                <td><label for="employment_assist">Employment Assistance</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenFlid" name="flid" value="no"></td>
+                <td><input type="checkbox" id="flid" name="flid" value="yes"></td>
+                <td><label for="flid">Florida ID</label></td>
+                </tr>
+                <tr>
+                <td><input type="hidden" id="hiddenFood_pantry" name="food_pantry" value="no"></td>
+                <td><input type="checkbox" id="food_pantry" name="food_pantry" value="yes"></td>
+                <td><label for="food_pantry">Food Pantry</label></td>
+                </tr>
+                <tr>
+                  <td><input type="hidden" id="hiddenEbt" name="ebt" value="no"></td>
+                  <td><input type="checkbox" id="ebt" name="ebt" value="yes"></td>
+                  <td><label for="ebt">Food Stamps/Medicaid/TANF</label></td>
+                  </tr>
+                  <tr>
+                    <td><input type="hidden" id="hiddenHousing" name="housing" value="no"></td>
+                    <td><input type="checkbox" id="housing" name="housing" value="yes"></td>
+                    <td><label for="housing">Housing Assistance</label></td>
+                    </tr>
+                    <tr>
+                      <td><input type="hidden" id="hiddenHygiene" name="hygiene" value="no"></td>
+                      <td><input type="checkbox" id="hygiene" name="hygiene" value="yes"></td>
+                      <td><label for="hygiene">Hygiene Kit</label></td>
+                      </tr>
+                      <tr>
+                        <td><input type="hidden" id="hiddenLaundry" name="laundry" value="no"></td>
+                        <td><input type="checkbox" id="laundry" name="laundry" value="yes"></td>
+                        <td><label for="laundry">Laundry Service</label></td>
+                        </tr>
+                        <tr>
+                          <td><input type="hidden" id="hiddenMail" name="mail" value="no"></td>
+                          <td><input type="checkbox" id="mail" name="mail" value="yes"></td>
+                          <td><label for="mail">Mail Service</label></td>
+                          </tr>
+                          <tr>
+                            <td><input type="hidden" id="hiddenMedical" name="medical" value="no"></td>
+                            <td><input type="checkbox" id="medical" name="medical" value="yes"></td>
+                            <td><label for="medical">Medical Clinic</label></td>
+                            </tr>
+                            <tr>
+                              <td><input type="hidden" id="hiddenGlasses" name="glasses" value="no"></td>
+                              <td><input type="checkbox" id="glasses" name="glasses" value="yes"></td>
+                              <td><label for="glasses">Reading Glasses</label></td>
+                              </tr>
+                              <tr>
+                                <td><input type="hidden" id="hiddenShowers" name="showers" value="no"></td>
+                                <td><input type="checkbox" id="showers" name="showers" value="yes"></td>
+                                <td><label for="showers">Showers</label></td>
+                                </tr>
+                                <tr>
+                                  <td><input type="hidden" id="hiddenTpid" name="tpid" value="no"></td>
+                                  <td><input type="checkbox" id="tpid" name="tpid" value="yes"></td>
+                                  <td><label for="tpid">Turning Points ID</label></td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="hidden" id="hiddenOther" name="other" value="no"></td>
+                                    <td><input type="checkbox" id="other" name="other" value="yes"></td>
+                                    <td><label for="other">Other</label></td>
+                                    </tr>
+                                    <tr>
+                                      <td><input type="hidden" id="hiddenPhone" name="phone" value="no"></td>
+                                      <td><input type="checkbox" id="phone" name="phone" value="yes"></td>
+                                      <td><label for="phone">Phone and other business services</label></td>
+                                      </tr>
+                                  <tr><td>&nbsp</td></tr>
+                </table>
+              </fieldset>
+
+              <br>
+
+
+          <div>
+            <p>
+            <button type="submit" id="log" class="btn btn-primary" name="csis-value" value="{{csis_number}}">Submit</button>
+            <button class="btn btn-primary" type="reset">Reset</button>
+          </p>
+          </div>
+
+      </form>
+
+    </div>
+
+      <br>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById("date").valueAsDate = new Date();
+        });
+    </script>
+
+    <script>
+        $(function() {
+          $("#csis-number").css("display","none");
+          $( "#csis-search" ).click(function() {
+            $( "#csis-number" ).toggle();
+        });
+      });
+    </script>
+
+      <script>
+        $(function() {
+          $("#search-display").css("display","none");
+          $( "#csis-search" ).click(function() {
+            $( "#search-display" ).toggle();
+        });
+      });
+    </script>
+
+    <script>
+        $('input[type=radio][name="county"]').change(function() {
+          console.log($(this).val())
+          if($(this).val() == 'yes') {
+            $("#manateeDisplay").show();
+        } else {
+            $("#manateeDisplay").hide();
+        }
+      });
+    </script>
+        <script>
+          $('input[type=radio][name="housed"]').change(function() {
+            console.log($(this).val())
+            if($(this).val() == 'yes') {
+              $("#homelessDisplay").show();
+          } else {
+              $("#homelessDisplay").hide();
+          }
+        });
+      </script>
+{% endblock %}

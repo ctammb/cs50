@@ -1,0 +1,41 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Validate Check IN
+{% endblock %}
+
+{% block main %}
+
+<div id="collect2" class="survey-container">
+  <form class="intake-form" name="checkinForm" id="validate" action="/checkin" method="post" >
+    <h2 class="display-6">Check In</h2>
+    <p><script> document.write(new Date().toDateString()); </script></p>
+    <br>
+      <fieldset>
+        <legend>Client Validation</legend>
+        <br><br>
+        <table class="input-table">
+          <tr>
+            <td><label class="form-label" for="csis_number">CSIS Number:</label></td>
+            <td><input type="search" id="csis_number" size=20 minlength=5 maxlength=9 name="csis_number"class="form-control"></td>
+            <td><button type="submit" id="csis-search" name="csis-search" class="btn btn-primary">Validate</button></td>
+
+          </tr>
+          <tr><td></td><td></td><td></td></tr>
+
+          {% if csis_alert %}
+          <tr>
+            <td class="message">For CSIS# {{ csis_number_display }}:</td>
+            <td class="message">Alert: {{ csis_alert }}</td>
+            <td>&nbsp</td><td>&nbsp</td>
+          </tr>
+          {% endif %}
+ 
+        </table>
+        </fieldset>
+
+      </form>
+
+    </div>
+
+{% endblock %}

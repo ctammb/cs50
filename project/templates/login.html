@@ -1,0 +1,42 @@
+{% extends "tplayout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+    <div id="collect6" class="survey-container">
+
+
+    <form class="login-form" action="/login" method="post">
+      <h2 class="display-6">Login to TP Navigator</h2>
+      <br>
+    <!-- username input -->
+    <div class="mb-1">
+      <input type="text" id="username" name="username" class="form-control">
+      <label class="form-label" for="username">Username</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="mb-1">
+      <input type="password" id="password" name="password" class="form-control">
+      <label class="form-label" for="password">Password</label>
+    </div>
+
+    <div class="col">
+        <!-- Simple link -->
+        <a href="#!">Forgot password?</a>
+    </div>
+    <br>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+    <!-- Register buttons -->
+    <div>
+      <p>Not registered? <a href="/register">Register</a></p>
+
+    </div>
+  </form>
+</div>
+{% endblock %}
