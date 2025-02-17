@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TP Navigator</title>
+        <script src="./app.js"></script>
+        <script src="./textarea.js"></script>
+        <script>
+          function showAlert(event) {
+              // Prevents the default form submission
+              event.preventDefault();
+              alert('Form submitted!');
+          }
+        </script>
+    </head>
+
+    <body>
+
+    <header>
+      <div id="nav-placeholder"></div>
+      <script>
+        $.get("navigation.html", function(data){
+            $("#nav-placeholder").replaceWith(data);
+        });
+      </script>
+    </header>
+
+    <main class="container">
+      <div class="ribbon"></div>
+      <div id="collect" class="survey-container">
+        <form id="intake">
+              <h2 class="display-6">Intake Questions</h2>
+              <br>
+              <fieldset>
+                <legend>What brings you in today?</legend>
+                <br>
+                <input type="hidden" id="hiddenFoodShort" name="foodShort" value="no">
+                <input type="checkbox" id="foodShort" name="foodShort" value="yes" autofocus>
+                <label for="foodShort">Short Term Food Insecurity</label>
+                <br>
+                <input type="hidden" id="hiddenFoodLong" name="foodLong" value="no">
+                <input type="checkbox" id="foodLong" name="foodLong" value="yes">
+                <label for="foodLong">Long Term Food Insecurity</label>
+                <br>
+                <input type="hidden" id="hiddenHousing" name="housing" value="no">
+                <input type="checkbox" id="housing" name="housing" value="yes">
+                <label for="housing">Housing assistance</label>
+                <br>
+                <input type="hidden" id="hiddenFlid" name="flid" value="no">
+                <input type="checkbox" id="flid" name="flid" value="yes">
+                <label for="flid">Florida ID</label>
+                <br>
+                <input type="hidden" id="hiddenEmployment" name="employment" value="no">
+                <input type="checkbox" id="employment" name="employment" value="yes">
+                <label for="employment">Employment Services</label>
+                <br>
+                <input type="hidden" id="hiddenMedical" name="medical" value="no">
+                <input type="checkbox" id="medical" name="medical" value="yes">
+
+                <label for="medical">Medical/Dental</label>
+                <br>
+                <input type="hidden" id="hiddenLegal" name="legal" value="no">
+                <input type="checkbox" id="legal" name="legal" value="yes">
+                <label for="legal">Legal services</label>
+                <br>
+                <input type="hidden" id="hiddenFamily" name="family" value="no">
+                <input type="checkbox" id="family" name="family" value="yes">
+                <label for="family">Family services</label>
+                <br>
+                <input type="hidden" id="hiddenTransportation" name="transportation" value="no">
+                <input type="checkbox" id="transportation" name="transportation" value="yes">
+                <label for="transportation">Transportation</label>
+                <br>
+                <input type="hidden" id="hiddenBike" name="bike" value="no">
+                <input type="checkbox" id="bike" name="bike" value="yes">
+                <label for="bike">Bike</label>
+                <br>
+                <input type="hidden" id="hiddenComputer" name="computer" value="no">
+                <input type="checkbox" id="computer" name="computer" value="yes">
+                <label for="computer">Computer Lab</label>
+                <br>
+                <input type="hidden" id="hiddenPatio" name="patio" value="no">
+                <input type="checkbox" id="patio" name="patio" value="yes">
+                <label for="patio">Patio services</label>
+                </fieldset>
+
+              <hr>
+
+              <fieldset>
+              <legend>How did you hear about Turning Points?</legend>
+              <div class="radio-block">
+                <label for="tphearOp1">
+                    <input type="radio" name="tphear" id="tphearOp1" value="Friend" required>
+                    Friend</label>
+                <label for="tphearOp2">
+                    <input type="radio" name="tphear" id="tphearOp2" value="Relative" required>
+                    Relative</label>
+                <label for="tphearOp3">
+                    <input type="radio" name="tphear" id="tphearOp3" value="Word of mouth" required>
+                    Word of mouth</label>
+                <label for="tphearOp4">
+                    <input type="radio" name="tphear" id="tphearOp4" value="Other agency" required>
+                    Other agency</label>
+                <label for="tphearOp5">
+                    <input type="radio" name="tphear" id="tphearOp5" value="Internet" required>
+                    Internet</label>
+                <label for="tphearOp6">
+                    <input type="radio" name="tphear" id="tphearOp6" value="Other" required>
+                    Other</label>
+              </div>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+              <legend>Do you currently live in Manatee County?</legend>
+              <div class="radio-block">
+                <label for="countyYes">
+                  <input type="radio" id="countyYes" name="county" value="yes" required>
+                  yes</label>
+                <label for="countyNo">
+                  <input type="radio" id="countyNo" name="county" value="no" required>
+                  no</label>
+              </div>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+                <legend>How long have you lived in Manatee County?</legend>
+                <div class="radio-block">
+                  <label for="mtimeOp1">
+                      <input type="radio" name="mtime" id="mtimeOp1" value="a few days" required>
+                      a few days</label>
+                  <label for="mtimeOp2">
+                      <input type="radio" name="mtime" id="mtimeOp2" value="more than a few days but less than 1 month">
+                      a few days - 1 month</label>
+                  <label for="mtimeOp3">
+                      <input type="radio" name="mtime" id="mtimeOp3" value="1 - 3 months">
+                      1 - 3 months</label>
+                  <label for="mtimeOp4">
+                      <input type="radio" name="mtime" id="mtimeOp4" value="3 months to 1 year">
+                      3 months - 1 year</label>
+                  <label for="mtimeOp5">
+                      <input type="radio" name="mtime" id="mtimeOp5" value="1 to 3 years">
+                      1 to 3 years</label>
+                  <label for="mtimeOp6">
+                      <input type="radio" name="mtime" id="mtimeOp6" value ="more than 3 years">
+                      More than 3 years</label>
+                </div>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+                <legend>Where did you sleep last night?</legend>
+                <div class="radio-block">
+                  <label for="sleepOp1">
+                      <input type="radio" name="sleep" id="sleepOp1" value="Friend's house" required>
+                      Friend's house</label>
+                  <label for="sleepOp2">
+                      <input type="radio" name="sleep" id="sleepOp2" value="Relative's house">
+                      Relative's house</label>
+                  <label for="sleepOp3">
+                      <input type="radio" name="sleep" id="sleepOp3" value="Salvation Army">
+                      Salvation Army</label>
+                  <label for="sleepOp4">
+                      <input type="radio" name="sleep" id="sleepOp4" value="Halfway house">
+                      Halfway house</label>
+                  <label for="sleepOp5">
+                      <input type="radio" name="sleep" id="sleepOp5" value="Car">
+                      Car</label>
+                  <label for="sleepOp6">
+                      <input type="radio" name="sleep" id="sleepOp6" value ="Streets">
+                      Streets</label>
+                  <label for="sleepOp7">
+                      <input type="radio" name="sleep" id="sleepOp7" value ="Other">
+                      Other</label>
+                </div>
+              </fieldset>
+              <hr>
+
+              <fieldset>
+                <legend>Do you consider yourself homeless?</legend>
+                <div class="radio-block">
+                  <label for="homelessYes">
+                    <input type="radio" id="homelessYes" name="homeless" value="yes" required>
+                    yes</label>
+                  <label for="homelessNo">
+                    <input type="radio" id="homelessNo" name="homeless" value="no">
+                    no</label>
+                </div>
+                </fieldset>
+                <hr>
+
+                <fieldset>
+                  <legend>If yes, how long have you been homeless?</legend>
+                  <div class="radio-block">
+                    <label for="htimeOp1">
+                        <input type="radio" name="homelessTime" id="htimeOp1" value="a few days" required>
+                        a few days</label>
+                    <label for="htimeOp2">
+                        <input type="radio" name="homelessTime" id="htimeOp2" value="more than a few days but less than 1 month">
+                        a few days - 1 month</label>
+                    <label for="htimeOp3">
+                        <input type="radio" name="homelessTime" id="htimeOp3" value="1 - 3 months">
+                        1 - 3 months</label>
+                    <label for="htimeOp4">
+                        <input type="radio" name="homelessTime" id="htimeOp4" value="3 months to 1 year">
+                        3 months - 1 year</label>
+                    <label for="htimeOp5">
+                        <input type="radio" name="homelessTime" id="htimeOp5" value="1 to 3 years">
+                        1 to 3 years</label>
+                    <label for="htimeOp6">
+                        <input type="radio" name="homelessTime" id="htimeOp6" value ="more than 3 years">
+                        More than 3 years</label>
+                  </div>
+                </fieldset>
+                <hr>
+
+                <fieldset>
+                  <legend>Special circumstance?</legend>
+                  <p>(Do not ask if not freely offered)</p>
+                  <div class="radio-block">
+                    <label for="specialOp0">
+                      <input type="radio" id="specialOp0" name="special" value="NA" checked required>
+                      NA</label>
+                    <label for="specialOp1">
+                      <input type="radio" id="specialOp1" name="special" value="Undocumented">
+                      Undocumented</label>
+                    <label for="specialOp2">
+                      <input type="radio" id="specialOp2" name="special" value="On probation">
+                      On probation</label>
+                    <label for="specialOp3">
+                      <input type="radio" id="specialOp3" name="special" value="Recently released">
+                      Recently released</label>
+                  </div>
+                  </fieldset>
+                  <hr>
+
+          <p>
+            <label for="comments">Other comments:</label>
+            <input type="text" id="comments" name="comments">
+          </p>
+          <p>
+            <label for="csis">CSIS Number:</label>
+            <input type="text" id="csis" name="csis">
+            <button id="btnPlan" type="submit" formaction="plan.html">Create a Plan</button>
+          </p>
+
+          <div>
+            <button type="submit" id="btnSave">Save</button>
+          </div>
+
+        </form>
+
+      </div>
+
+      <br>
+
+      <div id="display">
+        <table>
+          <thead>
+            <tr>
+              <th>Food Short</th>
+              <th>Food Long</th>
+              <th>Housing</th>
+              <th>ID</th>
+              <th>Employment</th>
+              <th>Medical</th>
+              <th>Legal</th>
+              <th>Family</th>
+              <th>Transportation</th>
+              <th>Bike</th>
+              <th>Computer</th>
+              <th>Patio</th>
+              <th>Hear</th>
+              <th>Resident</th>
+              <th>Resident Time</th>
+              <th>Sleep</th>
+              <th>Homeless</th>
+              <th>Homeless Time</th>
+              <th>Special</th>
+              <th>Comments</th>
+              <th>CSIS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-row="0">
+              <td data-col="0" data-name="foodShort">&#9745;</td>
+              <td data-col="1" data-name="foodLong">&#9745;</td>
+              <td data-col="2" data-name="housing">&#9745;</td>
+              <td data-col="3" data-name="flid">&#9745;</td>
+              <td data-col="4" data-name="employment">&#9745;</td>
+              <td data-col="5" data-name="medical">&#9745;</td>
+              <td data-col="6" data-name="legal">&#9745;</td>
+              <td data-col="7" data-name="family">&#9745;</td>
+              <td data-col="8" data-name="transportation">&#9745;</td>
+              <td data-col="9" data-name="bike">&#9745;</td>
+              <td data-col="10" data-name="computer">&#9745;</td>
+              <td data-col="11" data-name="patio">&#9745;</td>
+              <td data-col="12" data-name="tphear">sample</td>
+              <td data-col="13" data-name="county">sample</td>
+              <td data-col="14" data-name="mTime">sample</td>
+              <td data-col="15" data-name="sleep">sample</td>
+              <td data-col="16" data-name="homeless">sample</td>
+              <td data-col="17" data-name="homelessTime">sample</td>
+              <td data-col="18" data-name="special">sample</td>
+              <td data-col="19" data-name="comments">sample</td>
+              <td data-col="20" data-name="csis">ANANANANA</td>
+            </tr>
+          </tbody>
+        </table>
+          <br>
+        <div style="text-align:right">
+        <button id="btnExport">Export</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted py-5">
+      <div id="footer-placeholder"></div>
+      <script>
+        $.get("footer.html", function(data){
+            $("#footer-placeholder").replaceWith(data);
+        });
+      </script>
+    </footer>
+
+    </body>
+
+</html>

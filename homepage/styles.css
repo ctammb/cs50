@@ -1,0 +1,148 @@
+body {
+    min-height: 50rem;
+    padding-top: 0.5rem;
+  }
+.header {
+    background-color: white;
+    color: #fff;
+    margin-bottom: 1rem 1rem;
+    padding: 1rem 1rem;
+}
+
+input {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+button {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 12px;
+    float: right;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+
+.container h1 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: larger;
+}
+
+.card-top {
+    padding-top: 4.0rem;
+    height: 10rem;
+    background-color: #485054;
+    color: white;
+}
+
+.survey-container {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-top: -40vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 30px;
+    width: 620px;
+}
+
+label {
+    display: inline-block;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+
+.ribbon {
+    background-color: #333399;
+    flex-shrink: 0;
+    height: 42vh;
+    width: 100%;
+}
+
+#wrapper {
+    display: flex;
+    background-color: #f8f8f8;
+    margin-top: -40vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    padding: 30px;
+    text-align: left;
+    width: 600px;
+}
+
+#display td, #display th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: smaller;
+}
+
+#display tr:nth-child(even){background-color: #f2f2f2;}
+
+#display tr:hover {background-color: #ddd;}
+
+#display th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #333399;
+    color: white;
+}
+
+#table_detail {
+    background-color: white;
+    width: 600px;
+    text-align: left;
+    border-collapse: collapse;
+    color: #2E2E2E;
+    border: #A4A4A4;
+}
+
+#table_detail tr:hover {
+    background-color: #F2F2F2;
+}
+
+#table_detail .hidden_row {
+    display: none;
+}
+.hidden_row_display {
+    font-weight: bold;
+}
+
+#form_detail {
+    width: 540px;
+    text-align: left;
+    border-collapse: collapse;
+    color: #2E2E2E;
+    border: #A4A4A4;
+}
+
+#comments {
+    width: 560px;
+}
+
+.radio-block label {
+    display: block;
+}
+
+#btnSave button {
+    float: none;
+}
+
+.login-form {
+    padding-left: 40px;
+}

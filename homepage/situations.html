@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TP Navigator</title>
+        <script>
+            function showHideRow(row) {
+                $("#" + row).toggle();
+            }
+        </script>
+    </head>
+
+    <body>
+
+    <header>
+        <div id="nav-placeholder"></div>
+        <script>
+            $.get("navigation.html", function(data){
+                $("#nav-placeholder").replaceWith(data);
+            });
+        </script>
+    </header>
+
+    <main class="container">
+      <div class="ribbon"></div>
+      <div id="wrapper">
+        <h2 class="display-6">Sensitive Situations</h2>
+
+    <table id="table_detail">
+
+        <tr onclick="showHideRow('hidden_row1');">
+            <td>Does the client have any active alerts?</td>
+        </tr>
+        <tr id="hidden_row1" class="hidden_row">
+            <td class="hidden_row_display">
+            Respond to alerts. If necessary, consult your manager. If the manager is not available, reach out to Steven, Ray, Margi, or Kathleen.
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row2');">
+            <td>Is the client a possible victim of domestic violence or trafficking?</td>
+        </tr>
+
+        <tr id="hidden_row2" class="hidden_row">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row3');">
+            <td>Is the client depressed or at risk for injury to self or others?</td>
+        </tr>
+
+        <tr id="hidden_row3" class="hidden_row">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row4');">
+            <td>Does the client have disabilities that compromise their ability to help themselves?</td>
+        </tr>
+
+        <tr id="hidden_row4" class="hidden_row">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+        <tr onclick="showHideRow('hidden_row5');">
+            <td>Is the client high? or have debilitating substance misuse issues?</td>
+        </tr>
+
+        <tr id="hidden_row5" class="hidden_row">
+            <td class="hidden_row_display">
+                Lorem ipsum
+            </td>
+        </tr>
+
+      <tr onclick="showHideRow('hidden_row6');">
+          <td>Is the client chronically homeless?</td>
+      </tr>
+
+      <tr id="hidden_row6" class="hidden_row">
+          <td class="hidden_row_display">
+              Lorem ipsum
+          </td>
+      </tr>
+
+    </table>
+</div>
+</main>
+
+<footer class="text-muted py-5">
+    <div id="footer-placeholder"></div>
+    <script>
+    $.get("footer.html", function(data){
+        $("#footer-placeholder").replaceWith(data);
+    });
+    </script>
+</footer>
+
+</body>
+
+</html>

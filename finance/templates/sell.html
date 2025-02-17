@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>Sell Shares</h1>
+        {% if not positions %}
+            <h4>Start a portfolio -  <a href="{{ url_for('buy') }}">Buy</a> or <a href="{{ url_for('quote') }}">Quote</a></h4>
+        {% endif %}
+
+        {% if positions %}
+        <table class = styled-table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Market Value</th>
+                </tr>
+            </thead>
+            {% for position in positions %}
+            <tbody>
+                <tr>
+                    <td>{{ position.symbol }}</td>
+                    <td>{{ position.quantity }}</td>
+                    <td>{{ position.price }}</td>
+                    <td>{{ position.value }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total Market Value</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ portfolio_total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="form-space">
+            <form action="/sell" method="post">
+                <div class="mb-3">
+                    <select multiple id="symbol" name="symbol">
+                        {% for position in positions %}
+                        <option value="{{ position.symbol }}" selected="selected">{{ position.symbol }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="shares" placeholder="Number of shares" type="text">
+                </div>
+                <button class="btn btn-primary" type="submit">Sell</button>
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

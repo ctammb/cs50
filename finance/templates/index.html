@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>Portfolio</h1>
+        <h3>{{ username }}</h3>
+        {% if not positions %}
+            <h4>Start a portfolio -  <a href="{{ url_for('buy') }}">Buy</a> or <a href="{{ url_for('quote') }}">Quote</a></h4>
+        {% endif %}
+
+        {% if positions %}
+        <table class = styled-table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Current Price</th>
+                    <th>Market Value</th>
+                </tr>
+            </thead>
+            {% for position in positions %}
+            <tbody>
+                <tr>
+                    <td>{{ position.symbol }}</td>
+                    <td>{{ position.quantity }}</td>
+                    <td>{{ position.price }}</td>
+                    <td>{{ position.value }}</td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td>cash</td>
+                    <td>{{ ucash_quantity }}</td>
+                    <td>{{ "$1.00" }}</td>
+                    <td>{{ ucash_dollars }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total Market Value</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ portfolio_total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        {% endif %}
+
+    </div>
+{% endblock %}

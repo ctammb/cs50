@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>Trade History</h1>
+        {% if not trades %}
+            <h4>Start a portfolio -  <a href="{{ url_for('buy') }}">Buy</a> or <a href="{{ url_for('quote') }}">Quote</a></h4>
+        {% endif %}
+
+        {% if trades %}
+        <table class = styled-table>
+            <thead>
+                <tr>
+                    <th>Trade ID</th>
+                    <th>Date</th>
+                    <th>Buy/Sell</th>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            {% for trade in trades %}
+            <tbody>
+                <tr>
+                    <td>{{ trade.trade_id }}</td>
+                    <td>{{ trade.timestamp }}</td>
+                    <td>{{ trade.Buy_Sell }}</td>
+                    <td>{{ trade.symbol }}</td>
+                    <td>{{ trade.quantity }}</td>
+                    <td>{{ trade.trade_price }}</td>
+                    <td>{{ trade.trade_amount }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+            </tfoot>
+        </table>
+        {% endif %}
+
+    </div>
+{% endblock %}

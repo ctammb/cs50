@@ -1,0 +1,22 @@
+HTML tags
+<main>
+<header>
+<nav>
+<button>
+<div>
+<ul>
+<li>
+<form>
+<p>
+<a>
+CSS properties
+background-color
+margin
+padding
+float
+text-align
+tag(label)
+class(.ribbon)
+id(#wrapper)
+I used Bootstrap and Javascript to create the navigation bar and include on all pages,
+as well as table and form functionality on other pages.

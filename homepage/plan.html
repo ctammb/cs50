@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TP Navigator</title>
+        <script>
+          function showAlert(event) {
+              // Prevents the default form submission
+              event.preventDefault();
+              alert('Form submitted!');
+          }
+        </script>
+        <script>
+          const json = localStorage.getItem('form');
+          const obj = JSON.parse(json);
+          for (key in obj) {
+              const markup = `<div>
+                                  <span>${key}: ${obj[key]}</span>
+                              </div>`;
+              document.getElementById('paragraph').innerHTML += markup;
+          }
+      </script>
+    </head>
+
+    <body>
+
+      <header>
+        <div id="nav-placeholder"></div>
+        <script>
+          $.get("navigation.html", function(data){
+              $("#nav-placeholder").replaceWith(data);
+          });
+        </script>
+      </header>
+
+      <main class="container">
+        <div class="ribbon"></div>
+        <div id="paragraph"></div>
+        <div id="collect2" class="survey-container">
+          <form>
+            <h2 class="display-6">Create a Plan</h2>
+            <br>
+
+            <fieldset>
+
+            <p>
+              <label for="csis">CSIS Number:</label>
+              <input type="text" id="csis" name="csis">
+            </p>
+            <input type="checkbox" id="food-short" name="food-short" value="yes">
+            <label for="food-short">Short Term Food Insecurity</label>
+            <br>
+            <input type="checkbox" id="food-long" name="food-long" value="yes">
+            <label for="food-long">Long Term Food Insecurity</label>
+            <br>
+            <input type="checkbox" id="housing" name="housing" value="yes">
+            <label for="housing">Housing assistance</label>
+            <br>
+            <input type="checkbox" id="flid" name="flid" value="yes">
+            <label for="flid">Florida ID</label>
+            <br>
+            <input type="checkbox" id="employment" name="employment" value="yes">
+            <label for="employment">Employment Services</label>
+            <br>
+            <input type="checkbox" id="medical" name="medical" value="yes">
+            <label for="medical">Medical/Dental</label>
+            <br>
+            <input type="checkbox" id="legal" name="legal" value="yes">
+            <label for="legal">Legal services</label>
+            <br>
+            <input type="checkbox" id="family" name="family" value="yes">
+            <label for="family">Family services</label>
+            <br>
+            <input type="checkbox" id="transportation" name="transportation" value="yes">
+            <label for="transportation">Transportation</label>
+            <br>
+            <input type="checkbox" id="bike" name="bike" value="yes">
+            <label for="bike">Bike</label>
+            <br>
+            <input type="checkbox" id="computer" name="computer" value="yes">
+            <label for="computer">Computer Lab</label>
+            <br>
+            <input type="checkbox" id="patio" name="patio" value="yes">
+            <label for="patio">Patio services</label>
+            <p>
+              <label for="comments">Comments:</label>
+              <input type="text" id="comments" name="comments">
+          </p>
+            </fieldset>
+            <hr>
+          </form>
+
+    </div>
+    </main>
+
+    <footer class="text-muted py-5">
+      <div id="footer-placeholder"></div>
+      <script>
+        $.get("footer.html", function(data){
+            $("#footer-placeholder").replaceWith(data);
+        });
+      </script>
+    </footer>
+
+  </body>
+</html>
