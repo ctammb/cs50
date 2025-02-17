@@ -1,0 +1,12 @@
+sort1 uses: bubble sort
+
+How do you know?: a sorted file takes much less time than the random file, especially when the file is large
+
+sort2 uses: merge sort
+
+How do you know?: Sorting algorithm is always fastest per record, regardless of the order of the file
+
+sort3 uses: selection sort
+
+How do you know?: best case and worse case are esssentially the same, and slower than merge sort
+
