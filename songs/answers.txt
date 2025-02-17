@@ -1,0 +1,4 @@
+The average energy is roughly 0.66, average valence is 0.48 and average danceability is 0.716. Not knowing the distribution of
+measurements from a larger sample of songs, I think it's pretty hard to characterize the aura. Perhaps the user is a little more upbeat than average based on his energy level and
+danceability numbers. I'm guessing that a valence around 50% is pretty ambiguous and can go either way. Better ways of calculating might include
+a time of day paring and a user input of mood at the time of listening.
